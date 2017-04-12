@@ -69,7 +69,27 @@
 						</ul>
 					</li>
 					<li>
-						<a href="logout.jsp">Log Out</a>
+						<c:choose>
+							<c:when test="${pageContext.request.userPrincipal.name != null}">
+					        	<%@ include file="/WEB-INF/views/logout.jsp" %>
+					        	 <h2>Welcome ${pageContext.request.userPrincipal.name} | <a onclick="document.forms['logoutForm'].submit()">Logout</a></h2>
+							</c:when>
+							<c:otherwise>
+								 <form method="POST" action="${contextPath}/cloudteam6/login" class="form-signin">
+							        <h2 class="form-heading">Log in</h2>
+							        <div class="form-group ${error != null ? 'has-error' : ''}">
+							            <span>${message}</span>
+							            <input name="username" type="text" class="form-control" placeholder="Username" autofocus="true"/>
+							            <input name="password" type="password" class="form-control" placeholder="Password"/>
+							            <span>${error}</span>
+							            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+							
+							            <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
+							            <h4 class="text-center"><a href="${contextPath}/cloudteam6/registration">Create an account</a></h4>
+							        </div>
+								</form>
+							</c:otherwise>
+						</c:choose>
 					</li>
 				</ul>
 			</div>
