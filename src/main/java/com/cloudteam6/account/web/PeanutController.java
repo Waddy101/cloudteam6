@@ -27,9 +27,13 @@ public class PeanutController {
 	public PeanutModificationResult deposit(@RequestParam(value="amount", defaultValue="0") int amount, Model model, Principal principal) {
 		User currentUser = userService.findByUsername(principal.getName());
 		
-		peanutService.deposit(amount, currentUser);
+		if (peanutService.deposit(amount, currentUser)) {
+			return new PeanutModificationResult(amount, "deposit", "Success!");
+		}
+		else {
+			return new PeanutModificationResult(-1, "deposit", "Error: The number of peanuts you are trying to deposit exceeds the upper limit in which our system can hold!");
+		}
 		
-		return new PeanutModificationResult(amount, "deposit");
 	}
 	
 	@GetMapping(value="/charge")
@@ -37,12 +41,11 @@ public class PeanutController {
 	public PeanutModificationResult charge(@RequestParam(value="amount", defaultValue="0") int amount, Model model, Principal principal) {
 		User currentUser = userService.findByUsername(principal.getName());
 		
-		if (amount > currentUser.getPeanutBalance()) {
-			return new PeanutModificationResult(-1, "failed");
+		if (peanutService.charge(amount, currentUser)) {
+			return new PeanutModificationResult(amount, "charge", "Success!");
 		}
 		else {
-			peanutService.charge(amount, currentUser);
-			return new PeanutModificationResult(amount, "charge");
+			return new PeanutModificationResult(-1, "charge", "Error: You do not have enough peanuts to be charged by this transaction.");
 		}
 		
 	}

@@ -13,18 +13,27 @@ public class PeanutServiceImpl implements PeanutService {
 	private UserRepository userRepository;
 	
 	@Override
-	public void deposit(int amount, User user) {
-		user.setPeanutBalance(user.getPeanutBalance() + amount);
-		
-		userRepository.updateUserPeanutBalance(user.getUsername(),
-							user.getPeanutBalance());
+	public boolean deposit(int amount, User user) {
+		if (user.getPeanutBalance() + amount < 0) {
+			return false;
+		}
+		else {
+			user.setPeanutBalance(user.getPeanutBalance() + amount);
+			userRepository.save(user);
+			return true;
+		}
 		
 	}
 
 	@Override
-	public void charge(int amount, User user) {
-		deposit(-1 * amount, user);
-
+	public boolean charge(int amount, User user) {
+		if (amount > user.getPeanutBalance()) {
+			return false;
+		}
+		else {
+			deposit(-1 * amount, user);
+			return true;
+		}
 	}
 
 }

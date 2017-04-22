@@ -4,26 +4,24 @@ public class PeanutModificationResult {
 	
 	private int amount; // The number of peanuts being deposited/charged
 	private String transaction;
+	private String message;
 	
-	public PeanutModificationResult(int amount, String transaction) {
+	public PeanutModificationResult(int amount, String transaction,
+									String message) {
 		this.amount = amount;
 		this.transaction = transaction;
+		this.message = message;
 	}
 
 	public int getAmount() {
 		return amount;
 	}
 
-	public void setAmount(int amount) {
-		this.amount = amount;
-	}
-
 	public String getTransaction() {
 		return transaction;
 	}
 
-	public void setTransaction(String transaction) {
-		this.transaction = transaction;
+	public String getMessage() {
+		return message;
 	}
-	
 }
