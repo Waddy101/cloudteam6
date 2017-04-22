@@ -7,6 +7,9 @@
 		http://www.springframework.org/schema/security
 		http://www.springframework.org/schema/security/spring-security.xsd">
 
+    <!-- Allows URL to be intercepted and checked for a logged in user using annotations directly on the request handling method in Java -->
+    <global-method-security pre-post-annotations="enabled" />
+    
     <http auto-config="true">
         <intercept-url pattern="/" access="hasRole('ROLE_USER')"/>
         <intercept-url pattern="/welcome" access="hasRole('ROLE_USER')"/>

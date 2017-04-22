@@ -12,6 +12,7 @@ public class User {
     private String password;
     private String passwordConfirm;
     private Set<Role> roles;
+    private int peanutBalance;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -57,4 +58,12 @@ public class User {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+    
+	public int getPeanutBalance() {
+		return peanutBalance;
+	}
+
+	public void setPeanutBalance(int peanutBalance) {
+		this.peanutBalance = peanutBalance;
+	}
 }
