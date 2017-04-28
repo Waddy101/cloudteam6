@@ -73,6 +73,7 @@
 							<c:when test="${pageContext.request.userPrincipal.name != null}">
 					        	<%@ include file="/WEB-INF/views/logout.jsp" %>
 					        	 <h2>Welcome ${pageContext.request.userPrincipal.name} | <a onclick="document.forms['logoutForm'].submit()">Logout</a></h2>
+					        	 <h4>${peanutBalance}</h4>
 							</c:when>
 							<c:otherwise>
 								 <form method="POST" action="${contextPath}/cloudteam6/login" class="form-signin">

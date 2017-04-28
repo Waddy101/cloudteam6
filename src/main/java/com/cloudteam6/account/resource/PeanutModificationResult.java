@@ -4,11 +4,11 @@ import java.util.List;
 
 public class PeanutModificationResult {
 	
-	private PeanutModificationRequest modificationRequest;
+	private int statusCode;
 	private List<String> messages;
 	
-	public PeanutModificationResult(PeanutModificationRequest modificationRequest, List<String> messages) {
-		this.modificationRequest = modificationRequest;
+	public PeanutModificationResult(int statusCode, List<String> messages) {
+		this.statusCode = statusCode;
 		this.messages = messages;
 	}
 	
@@ -19,11 +19,15 @@ public class PeanutModificationResult {
 	public void setMessages(List<String> messages) {
 		this.messages = messages;
 	}
-
-	public PeanutModificationRequest getModificationRequest() {
-		return modificationRequest;
-	}
 	
+	public int getStatusCode() {
+		return statusCode;
+	}
+
+	public void setStatusCode(int statusCode) {
+		this.statusCode = statusCode;
+	}
+
 	public void addMessage(String message) {
 		messages.add(message);
 	}

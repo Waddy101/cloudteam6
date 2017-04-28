@@ -8,6 +8,7 @@ public class PeanutModificationRequest {
 	private int amount;
 	private String transaction;
 	private String username;
+	private String password;
 	
 	public String getUsername() {
 		return username;
@@ -32,5 +33,12 @@ public class PeanutModificationRequest {
 	public void setTransaction(String transaction) {
 		this.transaction = transaction;
 	}
-	
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 }

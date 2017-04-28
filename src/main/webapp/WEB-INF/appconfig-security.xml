@@ -15,6 +15,7 @@
         <intercept-url pattern="/welcome" access="hasRole('ROLE_USER')"/>
         <form-login login-page="/login" default-target-url="/welcome" authentication-failure-url="/login?error" username-parameter="username" password-parameter="password"/>
         <logout logout-success-url="/welcome" />
+        <csrf disabled="true"/>
     </http>
 
     <authentication-manager alias="authenticationManager">

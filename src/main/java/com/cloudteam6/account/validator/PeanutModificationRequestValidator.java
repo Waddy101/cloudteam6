@@ -1,6 +1,7 @@
 package com.cloudteam6.account.validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -13,8 +14,13 @@ import com.cloudteam6.account.service.UserService;
 @Component
 public class PeanutModificationRequestValidator implements Validator {
 	
+	static final int MAX_INT = 2147483647;
+	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@Override
 	/**
@@ -40,9 +46,14 @@ public class PeanutModificationRequestValidator implements Validator {
 		}
 		
 		User user = userService.findByUsername(request.getUsername());
+		// User authentication checks
+		if (!bCryptPasswordEncoder.matches(request.getPassword(), user.getPassword())) {
+			e.rejectValue("password", "peanut.bad.credential");
+		}
 		if (request.getTransaction().equals("deposit")) {
 			// Overflow
-			if (request.getAmount() + user.getPeanutBalance() < 0) {
+			int depositLimit = MAX_INT - user.getPeanutBalance();
+			if (request.getAmount() > depositLimit) {
 				e.rejectValue("amount", "peanut.amount.overflow");
 			}
 		}

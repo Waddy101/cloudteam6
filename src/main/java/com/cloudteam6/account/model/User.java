@@ -14,6 +14,15 @@ public class User {
     private Set<Role> roles;
     private int peanutBalance;
 
+    
+    /**
+     * Gives a new user 50 (the default number of) peanuts on registration
+     */
+    @PrePersist
+    public void prePersist() {
+    	peanutBalance = 50;
+    }
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
