@@ -1,6 +1,8 @@
 <%@tag description="Default Page template" pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@attribute name="title" required="false"%>
 
 <!DOCTYPE html>
@@ -10,12 +12,8 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Cloud Platform</title>
-	<!--
-	<spring:url value="/css/main.css" var="springCss" />
-	<link href="${springCss}" rel="stylesheet" />
-	 -->
-	<c:url value="/css/application.css" var="jstlCss" />
-	<link href="${jstlCss}" rel="stylesheet" />	 
+	<link href="${pageContext.request.contextPath}/resources/css/application.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/resources/css/login.css" rel="stylesheet">
 	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
 	<!--[if lt IE 9]>
 	    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -24,6 +22,7 @@
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	<sec:csrfMetaTags/>
 </head>
 <body>
 	<nav class="navbar navbar-default">
@@ -47,14 +46,17 @@
 						data-toggle="dropdown" role="button" aria-haspopup="true"
 						aria-expanded="false">Upload<span class="caret"></span></a>
 						<ul class="dropdown-menu" id="left-dropdown">
-							<li><form method="post" action="upload" enctype="multipart/form-data">
+							<li><form:form method="post" action="upload" enctype="multipart/form-data"> 
+								<p>
+									Application name: Name1: <input type="text" name="name" />
+								</p>
 								<p>
 									Select file to upload: <input type="file" name="file" size="60" />
 								</p>
 								<p>
 									<input type="submit" value="Upload" />
 								</p>
-							</form></li>
+							</form:form></li>
 						</ul>
 					</li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle" id="left-dropdown"
@@ -79,7 +81,7 @@
 							        <h2 class="form-heading">Log in</h2>
 							        <div class="form-group ${error != null ? 'has-error' : ''}">
 							            <span>${message}</span>
-							            <input name="username" type="text" class="form-control" placeholder="Username" autofocus="true"/>
+							            <input name="username" type="text" class="form-control" placeholder="Username"/>
 							            <input name="password" type="password" class="form-control" placeholder="Password"/>
 							            <span>${error}</span>
 							            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
