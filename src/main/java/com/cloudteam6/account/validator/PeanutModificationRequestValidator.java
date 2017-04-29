@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import com.cloudteam6.account.model.User;
@@ -32,10 +31,11 @@ public class PeanutModificationRequestValidator implements Validator {
 
 	@Override
 	public void validate(Object o, Errors e) {
-		ValidationUtils.rejectIfEmpty(e, "amount", "peanut.amount.empty");
-		ValidationUtils.rejectIfEmpty(e, "transaction", "peanut.transaction.empty");
-		
 		PeanutModificationRequest request = (PeanutModificationRequest) o;
+		if (hasUninitialisedNullableFields(request, e)) {
+			return;
+		}
+		
 		if ( !(request.getTransaction().equals("deposit") ||
 				request.getTransaction().equals("charge")) ) {
 			e.rejectValue("transaction", "peanut.unknown.transaction");
@@ -63,6 +63,19 @@ public class PeanutModificationRequestValidator implements Validator {
 			}
 		}
 		
+	}
+	
+	private boolean hasUninitialisedNullableFields(PeanutModificationRequest request, Errors e) {
+		boolean requiredFieldIsNull = false;
+		if (request.getUsername() == null) {
+			e.rejectValue("username", "peanut.username.empty");
+			requiredFieldIsNull = true;
+		}
+		if (request.getPassword() == null) {
+			e.rejectValue("password", "peanut.password.empty");
+			requiredFieldIsNull = true;
+		}
+		return requiredFieldIsNull;
 	}
 
 }
