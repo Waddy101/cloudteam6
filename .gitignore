@@ -38,3 +38,4 @@ dump.rdb
 transaction-logs
 cloudkey
 cloudkey.pub
+src/main/resources/application.properties

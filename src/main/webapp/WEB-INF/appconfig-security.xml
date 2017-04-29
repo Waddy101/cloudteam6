@@ -3,15 +3,18 @@
              xmlns:beans="http://www.springframework.org/schema/beans"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://www.springframework.org/schema/beans
-		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-		http://www.springframework.org/schema/security
-		http://www.springframework.org/schema/security/spring-security.xsd">
+            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+            http://www.springframework.org/schema/security
+            http://www.springframework.org/schema/security/spring-security.xsd">
 			
 	<http pattern="/**/*.css" security="none" />
     <http pattern="/**/*.js" security="none" />
     <http pattern="/**/*.png" security="none" />
     <http pattern="/**/*.jpg" security="none" />
     <http pattern="/**/*.gif" security="none" />  
+
+    <!-- Allows URL to be intercepted and checked for a logged in user using annotations directly on the request handling method in Java -->
+    <global-method-security pre-post-annotations="enabled" />
     
     <http auto-config="true">
         <intercept-url pattern="/" access="hasRole('ROLE_USER')"/>
@@ -19,8 +22,9 @@
         <intercept-url pattern="/upload" access="hasRole('ROLE_USER')"/>
         <form-login login-page="/login" default-target-url="/welcome" authentication-failure-url="/login?error" username-parameter="username" password-parameter="password"/>
         <logout logout-success-url="/welcome" />
-    </http> 
-        
+        <csrf disabled="true"/>
+    </http>
+
     <authentication-manager alias="authenticationManager">
         <authentication-provider user-service-ref="userDetailsServiceImpl">
             <password-encoder ref="encoder"></password-encoder>
