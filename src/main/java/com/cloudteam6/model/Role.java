@@ -1,4 +1,4 @@
-package com.cloudteam6.account.model;
+package com.cloudteam6.model;
 
 import javax.persistence.*;
 import java.util.Set;

@@ -27,7 +27,7 @@
     <!-- Configure the entity manager factory bean -->
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <property name="packagesToScan" value="com.cloudteam6.account.model"/>
+        <property name="packagesToScan" value="com.cloudteam6.model"/>
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
         </property>
@@ -54,6 +54,6 @@
       repository interfaces
     -->
 
-    <jpa:repositories base-package="com.cloudteam6.account.repository"/>
+    <jpa:repositories base-package="com.cloudteam6.repository"/>
 
 </beans>

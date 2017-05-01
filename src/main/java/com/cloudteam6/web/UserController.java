@@ -1,9 +1,10 @@
-package com.cloudteam6.account.web;
+package com.cloudteam6.web;
 
-import com.cloudteam6.account.model.User;
-import com.cloudteam6.account.service.SecurityService;
-import com.cloudteam6.account.service.UserService;
-import com.cloudteam6.account.validator.UserValidator;
+import com.cloudteam6.model.User;
+import com.cloudteam6.service.SecurityService;
+import com.cloudteam6.service.UserService;
+import com.cloudteam6.validator.UserValidator;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -1,7 +1,8 @@
-package com.cloudteam6.account.repository;
+package com.cloudteam6.repository;
 
-import com.cloudteam6.account.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.cloudteam6.model.Role;
 
 public interface RoleRepository extends JpaRepository<Role, Long>{
 	

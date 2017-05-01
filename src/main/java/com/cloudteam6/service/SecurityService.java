@@ -1,4 +1,4 @@
-package com.cloudteam6.account.service;
+package com.cloudteam6.service;
 
 public interface SecurityService {
     String findLoggedInUsername();

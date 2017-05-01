@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <%@tag description="Default Page template" pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -5,7 +7,6 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@attribute name="title" required="false"%>
 
-<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
@@ -20,8 +21,10 @@
 	    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	    <![endif]-->
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+	<script type="text/javascript" src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
 	<sec:csrfMetaTags/>
 </head>
 <body>
@@ -48,7 +51,10 @@
 						<ul class="dropdown-menu" id="left-dropdown">
 							<li><form:form method="post" action="upload" enctype="multipart/form-data"> 
 								<p>
-									Application name: Name1: <input type="text" name="name" />
+									Application name: <input type="text" name="name" />
+								</p>
+								<p> 
+									Select Image to represent your application: <input type="file" name="imagefile" size="60" />
 								</p>
 								<p>
 									Select file to upload: <input type="file" name="file" size="60" />
@@ -63,36 +69,38 @@
 						data-toggle="dropdown" role="button" aria-haspopup="true"
 						aria-expanded="false">Apps<span class="caret"></span></a>
 						<ul class="dropdown-menu" id="left-dropdown">
-							<li><a href="#">App1</a></li>
-							<li><a href="#">App2</a></li>
-							<li><a href="#">App3</a></li>
-							<li role="separator" class="divider"></li>
-							<li><a href="#">Separated link</a></li>
+							<!--  Dynamically add applications here -->
 						</ul>
 					</li>
-					<li>
-						<c:choose>
-							<c:when test="${pageContext.request.userPrincipal.name != null}">
-					        	<%@ include file="/WEB-INF/views/logout.jsp" %>
-					        	 <h2>Welcome ${pageContext.request.userPrincipal.name} | <a onclick="document.forms['logoutForm'].submit()">Logout</a></h2>
-							</c:when>
-							<c:otherwise>
-								 <form method="POST" action="${contextPath}/cloudteam6/login" class="form-signin">
-							        <h2 class="form-heading">Log in</h2>
-							        <div class="form-group ${error != null ? 'has-error' : ''}">
-							            <span>${message}</span>
-							            <input name="username" type="text" class="form-control" placeholder="Username"/>
-							            <input name="password" type="password" class="form-control" placeholder="Password"/>
-							            <span>${error}</span>
-							            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-							
-							            <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
-							            <h4 class="text-center"><a href="${contextPath}/cloudteam6/registration">Create an account</a></h4>
-							        </div>
-								</form>
-							</c:otherwise>
-						</c:choose>
-					</li>
+					<c:choose>
+						<c:when test="${pageContext.request.userPrincipal.name != null}">
+				        	<li>
+				        	<%@ include file="/WEB-INF/views/logout.jsp" %>
+				        	<h3>Welcome ${pageContext.request.userPrincipal.name} | <a onclick="document.forms['logoutForm'].submit()">Logout</a></h3>		
+							</li>
+						</c:when>
+						<c:otherwise>
+							<li class="dropdown"><a href="#" class="dropdown-toggle" id="left-dropdown"
+							data-toggle="dropdown" role="button" aria-haspopup="true"
+							aria-expanded="false">Login<span class="caret"></span></a>
+								<ul class="dropdown-menu" id="left-dropdown">
+									<li><form method="POST" action="${contextPath}/cloudteam6/login" class="form-signin">
+								        <h2 class="form-heading">Log in</h2>
+								        <div class="form-group ${error != null ? 'has-error' : ''}">
+								            <span>${message}</span>
+								            <input name="username" type="text" class="form-control" placeholder="Username"/>
+								            <input name="password" type="password" class="form-control" placeholder="Password"/>
+								            <span>${error}</span>
+								            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+								
+								            <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
+								            <h4 class="text-center"><a href="${contextPath}/cloudteam6/registration">Create an account</a></h4>
+								        </div>
+									</form></li>
+								</ul>	
+							</li>
+						</c:otherwise>
+					</c:choose>
 				</ul>
 			</div>
 			<!-- /.navbar-collapse -->

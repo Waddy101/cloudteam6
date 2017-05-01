@@ -1,8 +1,9 @@
-package com.cloudteam6.account.service;
+package com.cloudteam6.service;
 
-import com.cloudteam6.account.model.Role;
-import com.cloudteam6.account.model.User;
-import com.cloudteam6.account.repository.UserRepository;
+import com.cloudteam6.model.Role;
+import com.cloudteam6.model.User;
+import com.cloudteam6.repository.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
