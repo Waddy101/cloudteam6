@@ -5,6 +5,8 @@ import com.cloudteam6.service.SecurityService;
 import com.cloudteam6.service.UserService;
 import com.cloudteam6.validator.UserValidator;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -58,7 +60,11 @@ public class UserController {
     }
 
     @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
-    public String welcome(Model model) {
-        return "welcome";
+    public String welcome(Model model, Principal principal) {
+        User currentUser = userService.findByUsername(principal.getName());
+        int peanutBalance = currentUser.getPeanutBalance();
+        model.addAttribute("peanutBalance", "Balance: " + peanutBalance +
+        				((peanutBalance != 1)? " peanuts ": " peanut"));
+    	return "welcome";
     }
 }

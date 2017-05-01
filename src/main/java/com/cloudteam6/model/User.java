@@ -12,7 +12,17 @@ public class User {
     private String password;
     private String passwordConfirm;
     private Set<Role> roles;
+    private int peanutBalance;
 
+    
+    /**
+     * Gives a new user 50 (the default number of) peanuts on registration
+     */
+    @PrePersist
+    public void prePersist() {
+    	peanutBalance = 50;
+    }
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
@@ -57,4 +67,12 @@ public class User {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+    
+	public int getPeanutBalance() {
+		return peanutBalance;
+	}
+
+	public void setPeanutBalance(int peanutBalance) {
+		this.peanutBalance = peanutBalance;
+	}
 }

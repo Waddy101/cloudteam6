@@ -75,8 +75,9 @@
 					<c:choose>
 						<c:when test="${pageContext.request.userPrincipal.name != null}">
 				        	<li>
-				        	<%@ include file="/WEB-INF/views/logout.jsp" %>
-				        	<h3>Welcome ${pageContext.request.userPrincipal.name} | <a onclick="document.forms['logoutForm'].submit()">Logout</a></h3>		
+					        	<%@ include file="/WEB-INF/views/logout.jsp" %>
+					        	<h3>Welcome ${pageContext.request.userPrincipal.name} | <a onclick="document.forms['logoutForm'].submit()">Logout</a></h3>		
+								<h4>${peanutBalance}</h4>
 							</li>
 						</c:when>
 						<c:otherwise>
