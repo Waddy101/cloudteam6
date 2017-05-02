@@ -8,6 +8,7 @@ import com.cloudteam6.repository.AppRepository;
 
 @Service
 public class AppServiceImpl implements AppService {
+	
 	@Autowired 
 	private AppRepository appRepository;
 	

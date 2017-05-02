@@ -1,10 +1,10 @@
-package com.cloudteam6.account.service;
+package com.cloudteam6.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cloudteam6.account.model.User;
-import com.cloudteam6.account.repository.UserRepository;
+import com.cloudteam6.model.User;
+import com.cloudteam6.repository.UserRepository;
 
 @Service
 public class PeanutServiceImpl implements PeanutService {

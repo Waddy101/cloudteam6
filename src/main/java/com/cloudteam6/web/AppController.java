@@ -19,12 +19,9 @@ public class AppController {
 	@GetMapping(path="/add")
 	public @ResponseBody String addNewApp (@RequestParam String name
 			, @RequestParam String URL, @RequestParam String applicationImageURL) {
-		App a = new App();
-		a.setName(name);
-		a.setURL(URL);
-		a.setApplicationImageURL(applicationImageURL);
+		App a = new App(name, URL, applicationImageURL);
 		appRepository.save(a);
-		return "Saved"; //Redirect to correct location
+		return a.getURL();
 	}
 
 	@GetMapping(path="/all")

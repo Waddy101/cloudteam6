@@ -1,6 +1,6 @@
-package com.cloudteam6.account.service;
+package com.cloudteam6.service;
 
-import com.cloudteam6.account.model.User;
+import com.cloudteam6.model.User;
 
 public interface PeanutService {
 	void deposit(int amount, User user);

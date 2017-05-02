@@ -1,4 +1,4 @@
-package com.cloudteam6.account.resource;
+package com.cloudteam6.resource;
 
 import org.springframework.stereotype.Component;
 

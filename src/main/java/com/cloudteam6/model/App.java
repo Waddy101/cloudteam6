@@ -9,6 +9,14 @@ public class App {
 	private String name;	
 	private String URL;	
 	private String applicationImageURL;
+	
+	protected App() {}
+	
+	public App(String name, String URL, String applicationImageURL) {
+		this.name = name;
+		this.URL = URL;
+		this.applicationImageURL = applicationImageURL;
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

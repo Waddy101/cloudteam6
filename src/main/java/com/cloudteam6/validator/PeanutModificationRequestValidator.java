@@ -1,4 +1,4 @@
-package com.cloudteam6.account.validator;
+package com.cloudteam6.validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -6,9 +6,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import com.cloudteam6.account.model.User;
-import com.cloudteam6.account.resource.PeanutModificationRequest;
-import com.cloudteam6.account.service.UserService;
+import com.cloudteam6.model.User;
+import com.cloudteam6.service.UserService;
+import com.cloudteam6.resource.PeanutModificationRequest;
 
 @Component
 public class PeanutModificationRequestValidator implements Validator {

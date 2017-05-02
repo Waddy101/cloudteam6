@@ -13,14 +13,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cloudteam6.model.App;
 import com.cloudteam6.repository.AppRepository;
-import com.cloudteam6.service.AppService;
 
 public class Extractor {
 	private static String destDir = System.getProperty("catalina.base") + "/webapps";
 	
 	@Autowired 
-	private AppService appService;
+	private AppRepository appRepository;
 	
+	@Transactional
 	public App extractFile(String filePath, String fileName, String imagefilePath, String imagefileName) throws IOException {
 		String jarpath = filePath;
 		JarFile jarfile = new JarFile(jarpath);
@@ -40,16 +40,16 @@ public class Extractor {
 			}
 		}
 		jarfile.close();
-		App a = new App();
-		a.setName(fileName.substring(0, fileName.length() - 4));
-		a.setURL("/" + a.getName());
-		a.setApplicationImageURL("/cloudteam6/uploadedFiles/images/" + imagefileName);		
+		String appName = fileName.substring(0, fileName.length() - 4);
+		String appURL = "/" + appName;
+		String appImageURL = "/cloudteam6/uploadedFiles/images/" + imagefileName;
+		App a = new App(appName, appURL, appImageURL);
 		System.out.println(a.getName());
 		System.out.println(a.getURL());
 		System.out.println(a.getApplicationImageURL());
 		System.out.println("failure extract 1");
 		
-		appService.save(a);
+		appRepository.save(a);
 		System.out.println("extracted");
 		return a;
 	}	

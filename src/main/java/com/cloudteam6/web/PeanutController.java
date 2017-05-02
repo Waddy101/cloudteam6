@@ -1,4 +1,4 @@
-package com.cloudteam6.account.web;
+package com.cloudteam6.web;
 
 import java.util.ArrayList;
 
@@ -8,11 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.*;
-import com.cloudteam6.account.model.User;
-import com.cloudteam6.account.resource.*;
-import com.cloudteam6.account.service.PeanutService;
-import com.cloudteam6.account.service.UserService;
-import com.cloudteam6.account.validator.PeanutModificationRequestValidator;
+import com.cloudteam6.model.User;
+import com.cloudteam6.service.UserService;
+import com.cloudteam6.resource.*;
+import com.cloudteam6.service.PeanutService;
+import com.cloudteam6.validator.PeanutModificationRequestValidator;
 
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
