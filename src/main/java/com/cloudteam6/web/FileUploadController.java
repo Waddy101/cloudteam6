@@ -56,8 +56,8 @@ public class FileUploadController {
 				System.out.println("failure 1");
 				Boolean extracted = extractor.extractFile(path.toString(), file.getOriginalFilename(), imagePath.toString(), imagefile.getOriginalFilename());
 				if (extracted) {
-					String appName = file.getOriginalFilename().substring(0, file.getOriginalFilename().length() - 4);
-					String appURL = "/" + appName;
+					String appName = name;
+					String appURL = "/" + file.getOriginalFilename().substring(0, file.getOriginalFilename().length() - 4);
 					String appImageURL = "/cloudteam6/uploadedFiles/images/" + imagefile.getOriginalFilename();
 					App a = new App(appName, appURL, appImageURL);
 					System.out.println(a.getName());

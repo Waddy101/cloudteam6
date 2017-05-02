@@ -10,7 +10,7 @@ $(function() {
 </script>
 
 <t:applicationLayout>
-	<iframe id="appFrame" src="${contextPath}/${appname}" width=100% height=100%>
+	<iframe id="appFrame" src="${contextPath}${appURL}" width=100% height=100%>
 		Please use a browser that supports iFrame to access applications on our website
 	</iframe>
 </t:applicationLayout>

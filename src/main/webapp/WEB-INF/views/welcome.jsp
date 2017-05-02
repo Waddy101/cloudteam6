@@ -1,6 +1,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="baseURL" value="${pageContext.request.localName}"/>
+<c:set var="basePort" value="${pageContext.request.localPort}"/>
 
 <t:applicationLayout>
     <h1>Available Applications</h1>
@@ -9,8 +11,8 @@
   		<c:forEach items="${appList}" var="app">
             <tr>
                 <td><c:out value="${app.name}" /></td>
-                <td><c:out value="${app.URL}" /></td>
-                <td><c:out value="${app.applicationImageURL}" /></td>
+                <td><a href="/cloudteam6/loadApp?appName=<c:out value="${app.name}"/>">Start</a></td>
+                <td><img src="http://${baseURL}:${basePort}<c:out value="${app.applicationImageURL}" />"></td>
             </tr>
         </c:forEach>
 	</table>    
