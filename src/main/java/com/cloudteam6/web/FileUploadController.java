@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,11 +17,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cloudteam6.repository.AppRepository;
 import com.cloudteam6.classfiles.Extractor;
 import com.cloudteam6.model.App;
 
 @Controller
 public class FileUploadController {
+	
+	@Autowired 
+	private AppRepository appRepository;
 	
 	private static final Logger logger = LoggerFactory.getLogger(FileUploadController.class);
 	private static String SAVE_DIR = "uploadedFiles";
@@ -49,9 +54,21 @@ public class FileUploadController {
 		        Files.write(imagePath, imagebytes);
 				Extractor extractor = new Extractor();
 				System.out.println("failure 1");
-				App extractedApp = extractor.extractFile(path.toString(), file.getOriginalFilename(), imagePath.toString(), imagefile.getOriginalFilename());
-				System.out.println("failure 2");
-				return extractedApp.getURL();
+				Boolean extracted = extractor.extractFile(path.toString(), file.getOriginalFilename(), imagePath.toString(), imagefile.getOriginalFilename());
+				if (extracted) {
+					String appName = file.getOriginalFilename().substring(0, file.getOriginalFilename().length() - 4);
+					String appURL = "/" + appName;
+					String appImageURL = "/cloudteam6/uploadedFiles/images/" + imagefile.getOriginalFilename();
+					App a = new App(appName, appURL, appImageURL);
+					System.out.println(a.getName());
+					System.out.println(a.getURL());
+					System.out.println(a.getApplicationImageURL());
+					appRepository.save(a);
+					System.out.println("failure 2");
+					return a.getURL();
+				} else {
+					return "extraction failure";
+				}
 			} catch (Exception e) {
 				logger.info("Upload failed");
 				return "redirect:/welcome";

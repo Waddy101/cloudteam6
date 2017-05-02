@@ -9,19 +9,11 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.cloudteam6.model.App;
-import com.cloudteam6.repository.AppRepository;
 
 public class Extractor {
 	private static String destDir = System.getProperty("catalina.base") + "/webapps";
 	
-	@Autowired 
-	private AppRepository appRepository;
-	
-	@Transactional
-	public App extractFile(String filePath, String fileName, String imagefilePath, String imagefileName) throws IOException {
+	public Boolean extractFile(String filePath, String fileName, String imagefilePath, String imagefileName) throws IOException {
 		String jarpath = filePath;
 		JarFile jarfile = new JarFile(jarpath);
 		for (Enumeration<JarEntry> iter = jarfile.entries();
@@ -40,17 +32,7 @@ public class Extractor {
 			}
 		}
 		jarfile.close();
-		String appName = fileName.substring(0, fileName.length() - 4);
-		String appURL = "/" + appName;
-		String appImageURL = "/cloudteam6/uploadedFiles/images/" + imagefileName;
-		App a = new App(appName, appURL, appImageURL);
-		System.out.println(a.getName());
-		System.out.println(a.getURL());
-		System.out.println(a.getApplicationImageURL());
-		System.out.println("failure extract 1");
-		
-		appRepository.save(a);
 		System.out.println("extracted");
-		return a;
+		return true;
 	}	
 }

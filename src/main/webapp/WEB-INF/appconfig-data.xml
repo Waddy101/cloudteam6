@@ -49,11 +49,6 @@
     <!-- Enable annotation driven transaction management -->
     <tx:annotation-driven/>
 
-    <!--
-      Configure Spring Data JPA and set the base package of the
-      repository interfaces
-    -->
-
     <jpa:repositories base-package="com.cloudteam6.repository"/>
 
 </beans>
