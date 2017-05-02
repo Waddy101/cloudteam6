@@ -16,7 +16,7 @@
   			<tr>
 	  			<td>Hello World</td>
 	  			<td>10p per MB used</td>
-	  			<td><a href="${contextPath}/HelloWorld/index.jsp">Start</a></td>
+	  			<td><a href="${contextPath}/cloudteam6/loadApp?appName=HelloWorld">Start</a></td>
   			</tr>
 		</tbody>
 	</table>    

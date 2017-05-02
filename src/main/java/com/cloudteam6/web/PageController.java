@@ -4,12 +4,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class PageController {
 	
 	@RequestMapping(value = "/loadApp", method = RequestMethod.GET)
-	public String getApplication(Model model) {
+	public String getApplication(@RequestParam("appName") String appname, Model model) {
+		model.addAttribute("appname", appname);
 		return "app";
 	}
 }
