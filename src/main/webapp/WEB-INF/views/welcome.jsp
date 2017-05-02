@@ -9,11 +9,13 @@
    	
    	<table id="applicationTable" class="table table-striped">
   		<c:forEach items="${appList}" var="app">
-            <tr>
-                <td><c:out value="${app.name}" /></td>
-                <td><a href="/cloudteam6/loadApp?appName=<c:out value="${app.name}"/>">Start</a></td>
-                <td><img src="http://${baseURL}:${basePort}<c:out value="${app.applicationImageURL}" />"></td>
-            </tr>
+  			<c:if test="${app.active || admin}">
+	            <tr>
+	                <td><c:out value="${app.name}" /></td>
+	                <td><a href="/cloudteam6/loadApp?appName=<c:out value="${app.name}"/>">Start</a></td>
+	                <td><img src="http://${baseURL}:${basePort}<c:out value="${app.applicationImageURL}" />"></td>
+	            </tr>
+            </c:if>
         </c:forEach>
 	</table>    
     <!-- Delete this later, only there for the purpose of testing the peanut bank REST endpoints -->

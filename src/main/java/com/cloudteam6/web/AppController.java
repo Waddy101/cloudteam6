@@ -1,31 +1,33 @@
 package com.cloudteam6.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.cloudteam6.model.App;
-import com.cloudteam6.repository.AppRepository;
+import com.cloudteam6.service.AppService;
 
 @Controller
-@RequestMapping(path="/app")
 public class AppController {
 	@Autowired 
-	private AppRepository appRepository;
+	private AppService appService;
 
-	@GetMapping(path="/add")
+	@RequestMapping(value="/add", method = RequestMethod.GET)
 	public @ResponseBody String addNewApp (@RequestParam String name
 			, @RequestParam String URL, @RequestParam String applicationImageURL) {
-		App a = new App(name, URL, applicationImageURL);
-		appRepository.save(a);
+		App a = new App(name, URL, applicationImageURL, false);
+		appService.save(a);
 		return a.getURL();
 	}
-
-	@GetMapping(path="/all")
-	public @ResponseBody Iterable<App> getAllApps() {
-		return appRepository.findAll();
+	
+	@RequestMapping(value = "/toggleApp", method = RequestMethod.POST)
+	@ResponseStatus(value = HttpStatus.OK)
+	public void toggleAppActivation(@RequestParam("active") boolean active, @RequestParam("appName") String appName) {
+		appService.toggleAppActivation(appName, active);	
 	}
 }

@@ -8,8 +8,6 @@ import java.util.Enumeration;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 public class Extractor {
 	private static String destDir = System.getProperty("catalina.base") + "/webapps";
 	

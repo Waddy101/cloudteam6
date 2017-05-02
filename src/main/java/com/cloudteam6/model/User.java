@@ -2,6 +2,7 @@ package com.cloudteam6.model;
 
 
 import javax.persistence.*;
+
 import java.util.Set;
 
 @Entity
@@ -12,7 +13,7 @@ public class User {
     private String password;
     private String passwordConfirm;
     private Set<Role> roles;
-    private int peanutBalance;
+    private int peanutbalance;
 
     
     /**
@@ -20,7 +21,7 @@ public class User {
      */
     @PrePersist
     public void prePersist() {
-    	peanutBalance = 50;
+    	peanutbalance = 50;
     }
     
     @Id
@@ -58,7 +59,7 @@ public class User {
         this.passwordConfirm = passwordConfirm;
     }
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     public Set<Role> getRoles() {
         return roles;
@@ -68,11 +69,11 @@ public class User {
         this.roles = roles;
     }
     
-	public int getPeanutBalance() {
-		return peanutBalance;
+	public int getPeanutbalance() {
+		return peanutbalance;
 	}
 
-	public void setPeanutBalance(int peanutBalance) {
-		this.peanutBalance = peanutBalance;
+	public void setPeanutbalance(int peanutBalance) {
+		this.peanutbalance = peanutBalance;
 	}
 }

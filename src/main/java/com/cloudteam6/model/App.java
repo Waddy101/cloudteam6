@@ -8,14 +8,16 @@ public class App {
 	private Long id;	
 	private String name;	
 	private String URL;	
-	private String applicationImageURL;
+	private String applicationimageurl;
+	private boolean active;
 	
 	protected App() {}
 	
-	public App(String name, String URL, String applicationImageURL) {
+	public App(String name, String URL, String applicationImageURL, boolean active) {
 		this.name = name;
 		this.URL = URL;
-		this.applicationImageURL = applicationImageURL;
+		this.applicationimageurl = applicationImageURL;
+		this.active = active;
 	}
 
 	@Id
@@ -44,12 +46,20 @@ public class App {
 		URL = uRL;
 	}
 
-	public String getApplicationImageURL() {
-		return applicationImageURL;
+	public String getApplicationimageurl() {
+		return applicationimageurl;
 	}
 
-	public void setApplicationImageURL(String applicationImageURL) {
-		this.applicationImageURL = applicationImageURL;
+	public void setApplicationimageurl(String applicationImageURL) {
+		this.applicationimageurl = applicationImageURL;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 		
 }

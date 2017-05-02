@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.cloudteam6.repository.AppRepository;
 import com.cloudteam6.classfiles.Extractor;
@@ -31,7 +32,7 @@ public class FileUploadController {
 	private static String SAVE_DIR = "uploadedFiles";
 		
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
-	public @ResponseBody String uploadFileHandler(@RequestParam("name") String name, @RequestParam("file") MultipartFile file, @RequestParam("imagefile") MultipartFile imagefile, HttpServletRequest req) {
+	public @ResponseBody ModelAndView uploadFileHandler(@RequestParam("name") String name, @RequestParam("file") MultipartFile file, @RequestParam("imagefile") MultipartFile imagefile, HttpServletRequest req) {
 		
 		if (!file.isEmpty()) {
 			try {
@@ -59,23 +60,23 @@ public class FileUploadController {
 					String appName = name;
 					String appURL = "/" + file.getOriginalFilename().substring(0, file.getOriginalFilename().length() - 4);
 					String appImageURL = "/cloudteam6/uploadedFiles/images/" + imagefile.getOriginalFilename();
-					App a = new App(appName, appURL, appImageURL);
+					App a = new App(appName, appURL, appImageURL, false);
 					System.out.println(a.getName());
 					System.out.println(a.getURL());
-					System.out.println(a.getApplicationImageURL());
+					System.out.println(a.getApplicationimageurl());
 					appRepository.save(a);
 					System.out.println("failure 2");
-					return a.getURL();
+					return new ModelAndView("redirect:/loadApp?appName=" + a.getName());
 				} else {
-					return "extraction failure";
+					return new ModelAndView("redirect:/welcome");
 				}
 			} catch (Exception e) {
 				logger.info("Upload failed");
-				return "redirect:/welcome";
+				return new ModelAndView("redirect:/welcome");
 			}
 		} else {
 			logger.info("You failed to upload" + name + "because the file was empty.");
-			return "redirect:/welcome";
+			return new ModelAndView("redirect:/welcome");
 		}
 	}
 }

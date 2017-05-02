@@ -14,7 +14,7 @@ public class PeanutServiceImpl implements PeanutService {
 	
 	@Override
 	public void deposit(int amount, User user) {
-		user.setPeanutBalance(user.getPeanutBalance() + amount);
+		user.setPeanutbalance(user.getPeanutbalance() + amount);
 		userRepository.save(user);
 		
 	}

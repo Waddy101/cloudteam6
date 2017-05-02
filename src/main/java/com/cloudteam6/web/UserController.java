@@ -26,9 +26,6 @@ public class UserController {
 
     @Autowired
     private UserValidator userValidator;
-    
-    @Autowired
-    private AppRepository appRepository;
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
@@ -65,11 +62,20 @@ public class UserController {
 
     @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
     public String welcome(Model model, Principal principal) {
-        User currentUser = userService.findByUsername(principal.getName());
-        int peanutBalance = currentUser.getPeanutBalance();
-        model.addAttribute("peanutBalance", "Balance: " + peanutBalance +
-        				((peanutBalance != 1)? " peanuts ": " peanut"));
-        model.addAttribute("appList", appRepository.findAll());
+    	if (principal != null) {
+    		User currentUser = userService.findByUsername(principal.getName());
+    		if (currentUser != null) {
+	        	int peanutBalance = currentUser.getPeanutbalance();
+	        	model.addAttribute("peanutBalance", "Balance: " + peanutBalance +
+	        				((peanutBalance != 1)? " peanuts ": " peanut"));
+		        if (currentUser.getRoles().contains("ROLE_ADMIN")) {
+		            model.addAttribute("admin", true);
+		        } else {
+		        	model.addAttribute("admin", false);
+		        }
+    		}
+    	}
+    	
     	return "welcome";
     }
 }

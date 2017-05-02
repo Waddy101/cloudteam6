@@ -32,7 +32,7 @@ public class PeanutController {
 	@Autowired
 	private PeanutModificationRequestValidator peanutModificationRequestValidator;
 	
-	@PostMapping(value="/deposit")
+	@RequestMapping(value="/deposit", method = RequestMethod.POST)
 	public ResponseEntity<PeanutModificationResult> deposit(@RequestBody PeanutModificationRequest request,
 								BindingResult bindingResult) {
 		request.setTransaction("deposit");
@@ -49,7 +49,7 @@ public class PeanutController {
 		return new ResponseEntity<PeanutModificationResult>(response, HttpStatus.OK);
 	}
 	
-	@PostMapping(value="/charge")
+	@RequestMapping(value="/charge", method = RequestMethod.POST)
 	public ResponseEntity<PeanutModificationResult> charge(@RequestBody PeanutModificationRequest request,
 								BindingResult bindingResult) {
 		request.setTransaction("charge");

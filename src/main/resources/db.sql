@@ -17,6 +17,8 @@ CREATE TABLE `role` (
 
 LOCK TABLES `role` WRITE;
 INSERT INTO `role` VALUES (1,'ROLE_USER');
+INSERT INTO `role` VALUES (2,'ROLE_DEV');
+INSERT INTO `role` VALUES (3,'ROLE_ADMIN');
 UNLOCK TABLES;
 
 --
@@ -28,6 +30,7 @@ CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
+  `enabled` boolean DEFAULT true,
   `peanutBalance` int(11) NOT NULL DEFAULT 25,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
@@ -55,6 +58,7 @@ CREATE TABLE `app` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
 	`name` varchar(256) DEFAULT NULL,
 	`URL` varchar(512) DEFAULT NULL,
-	`applicationImageURL` varchar(512) DEFAULT NULL,
+	`applicationimageurl` varchar(512) DEFAULT NULL,
+	`active` boolean NOT NULL,
 	PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;

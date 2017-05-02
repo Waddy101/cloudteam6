@@ -52,13 +52,13 @@ public class PeanutModificationRequestValidator implements Validator {
 		}
 		if (request.getTransaction().equals("deposit")) {
 			// Overflow
-			int depositLimit = MAX_INT - user.getPeanutBalance();
+			int depositLimit = MAX_INT - user.getPeanutbalance();
 			if (request.getAmount() > depositLimit) {
 				e.rejectValue("amount", "peanut.amount.overflow");
 			}
 		}
 		else if (request.getTransaction().equals("charge")) {
-			if (request.getAmount() > user.getPeanutBalance()) {
+			if (request.getAmount() > user.getPeanutbalance()) {
 				e.rejectValue("amount", "peanut.insufficient");
 			}
 		}
