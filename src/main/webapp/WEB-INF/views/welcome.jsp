@@ -1,24 +1,18 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <t:applicationLayout>
     <h1>Available Applications</h1>
    	
    	<table id="applicationTable" class="table table-striped">
-   		<thead>
-   			<tr>
-	   			<th>Application Name</th>
-	   			<th>Pricing Information</th>
-	   			<th>Application Options</th>
-   			</tr>
-  		</thead>
-  		<tbody>
-  			<tr>
-	  			<td>Hello World</td>
-	  			<td>10p per MB used</td>
-	  			<td><a href="${contextPath}/cloudteam6/loadApp?appName=HelloWorld">Start</a></td>
-  			</tr>
-		</tbody>
+  		<c:forEach items="${appList}" var="app">
+            <tr>
+                <td><c:out value="${app.name}" /></td>
+                <td><c:out value="${app.URL}" /></td>
+                <td><c:out value="${app.applicationImageURL}" /></td>
+            </tr>
+        </c:forEach>
 	</table>    
     <!-- Delete this later, only there for the purpose of testing the peanut bank REST endpoints -->
     <input type="text" id="amount" name="amount" placeholder="type an amount here"/>
@@ -28,7 +22,6 @@
     
     <script>
     $(function() {
-    	
     	function sendAjax(transaction) {
             $.ajax({
                 url: "/cloudteam6/" + transaction,

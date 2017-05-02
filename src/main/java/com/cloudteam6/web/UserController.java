@@ -1,6 +1,7 @@
 package com.cloudteam6.web;
 
 import com.cloudteam6.model.User;
+import com.cloudteam6.repository.AppRepository;
 import com.cloudteam6.service.SecurityService;
 import com.cloudteam6.service.UserService;
 import com.cloudteam6.validator.UserValidator;
@@ -25,6 +26,9 @@ public class UserController {
 
     @Autowired
     private UserValidator userValidator;
+    
+    @Autowired
+    private AppRepository appRepository;
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
@@ -65,6 +69,7 @@ public class UserController {
         int peanutBalance = currentUser.getPeanutBalance();
         model.addAttribute("peanutBalance", "Balance: " + peanutBalance +
         				((peanutBalance != 1)? " peanuts ": " peanut"));
+        model.addAttribute("appList", appRepository.findAll());
     	return "welcome";
     }
 }
