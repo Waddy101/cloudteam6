@@ -12,6 +12,8 @@ public class User {
     private String username;
     private String password;
     private String passwordConfirm;
+    private String firstname;
+    private String lastname;
     private Set<Role> roles;
     private int peanutbalance;
 
@@ -76,4 +78,20 @@ public class User {
 	public void setPeanutbalance(int peanutBalance) {
 		this.peanutbalance = peanutBalance;
 	}
+	
+	public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+    
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
 }

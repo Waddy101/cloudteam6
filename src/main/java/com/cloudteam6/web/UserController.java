@@ -1,7 +1,7 @@
 package com.cloudteam6.web;
 
+import com.cloudteam6.model.Role;
 import com.cloudteam6.model.User;
-import com.cloudteam6.repository.AppRepository;
 import com.cloudteam6.service.SecurityService;
 import com.cloudteam6.service.UserService;
 import com.cloudteam6.validator.UserValidator;
@@ -58,24 +58,5 @@ public class UserController {
             model.addAttribute("message", "You have been logged out successfully.");
 
         return "login";
-    }
-
-    @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
-    public String welcome(Model model, Principal principal) {
-    	if (principal != null) {
-    		User currentUser = userService.findByUsername(principal.getName());
-    		if (currentUser != null) {
-	        	int peanutBalance = currentUser.getPeanutbalance();
-	        	model.addAttribute("peanutBalance", "Balance: " + peanutBalance +
-	        				((peanutBalance != 1)? " peanuts ": " peanut"));
-		        if (currentUser.getRoles().contains("ROLE_ADMIN")) {
-		            model.addAttribute("admin", true);
-		        } else {
-		        	model.addAttribute("admin", false);
-		        }
-    		}
-    	}
-    	
-    	return "welcome";
     }
 }

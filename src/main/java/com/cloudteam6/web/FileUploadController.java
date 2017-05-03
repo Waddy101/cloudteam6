@@ -54,7 +54,6 @@ public class FileUploadController {
 		        Path imagePath = Paths.get(savePath + File.separator + "images" + File.separator + imagefile.getOriginalFilename());
 		        Files.write(imagePath, imagebytes);
 				Extractor extractor = new Extractor();
-				System.out.println("failure 1");
 				Boolean extracted = extractor.extractFile(path.toString(), file.getOriginalFilename(), imagePath.toString(), imagefile.getOriginalFilename());
 				if (extracted) {
 					String appName = name;
@@ -65,7 +64,6 @@ public class FileUploadController {
 					System.out.println(a.getURL());
 					System.out.println(a.getApplicationimageurl());
 					appRepository.save(a);
-					System.out.println("failure 2");
 					return new ModelAndView("redirect:/loadApp?appName=" + a.getName());
 				} else {
 					return new ModelAndView("redirect:/welcome");

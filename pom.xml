@@ -17,26 +17,23 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<start-class>com.cloudteam6.Application</start-class>
+		<tomcat.version>8.0.3</tomcat.version>
 	</properties>
 
 	<dependencies>
-
-		<!-- This is a web application -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		
-		<dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
-        </dependency>
-
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-        </dependency>
+      		<groupId>org.springframework.boot</groupId>
+      		<artifactId>spring-boot-starter-web</artifactId>
+        	<exclusions>
+            	<exclusion>
+                	<groupId>org.springframework.boot</groupId>
+                	<artifactId>spring-boot-starter-tomcat</artifactId>
+            	</exclusion>
+        	</exclusions>
+    	</dependency>
 
+		
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
@@ -50,11 +47,6 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-jpa</artifactId>
         </dependency>
 
         <dependency>
@@ -75,14 +67,7 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
-
-		<!-- Tomcat embedded container-->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-tomcat</artifactId>
-			<scope>provided</scope>
-		</dependency>
-
+		
 		<!-- JSTL for JSP -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -103,9 +88,8 @@
 		
 		<!-- https://mvnrepository.com/artifact/aspectj/aspectjweaver -->
         <dependency>
-    		<groupId>aspectj</groupId>
+    		<groupId>org.aspectj</groupId>
     		<artifactId>aspectjweaver</artifactId>
-    		<version>1.5.4</version>
         </dependency>
 
 		<!-- Need this to compile JSP,
@@ -130,11 +114,6 @@
         <dependency>
             <groupId>commons-dbcp</groupId>
             <artifactId>commons-dbcp</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
         </dependency>
 
 		<!-- Optional, test for static content, bootstrap CSS-->
@@ -171,18 +150,43 @@
 	</dependencies>
 	<build>
 		<plugins>
-			<!-- Package as an executable jar/war -->
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-           		<artifactId>maven-compiler-plugin</artifactId>
-            	<configuration>
-                	<source>1.8</source>
-                	<target>1.8</target>
-            	</configuration>
+        	<plugin>
+        		<groupId>org.apache.maven.plugins</groupId>
+        		<artifactId>maven-war-plugin</artifactId>
+        		<configuration>
+            		<webResources>
+            		<resource>
+               	 		<directory>src/main/webapp</directory>
+                		<filtering>true</filtering>
+            		</resource> 
+            		</webResources>
+        		</configuration>
         	</plugin>
-		</plugins>
-	</build>
+        	<plugin>
+        		<groupId>org.springframework.boot</groupId>
+        		<artifactId>spring-boot-maven-plugin</artifactId>
+       			<configuration>
+            		<resources>
+            			<resource>
+                			<filtering>true</filtering>
+                			<directory>src/main/resources/</directory>
+           				</resource>
+            		</resources>
+        		</configuration>
+        	</plugin>
+    	</plugins>
+    </build>
+    <repositories>
+    	<repository>
+        	<id>spring-releases</id>
+        	<url>https://repo.spring.io/libs-release</url>
+    	</repository>
+    </repositories>
+    <pluginRepositories>
+    	<pluginRepository>
+        	<id>spring-releases</id>
+        	<url>https://repo.spring.io/libs-release</url>
+    	</pluginRepository>
+    </pluginRepositories>
+    <name>cloudteam6</name>
 </project>

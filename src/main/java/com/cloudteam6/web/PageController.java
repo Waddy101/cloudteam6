@@ -1,5 +1,7 @@
 package com.cloudteam6.web;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -51,5 +53,29 @@ public class PageController {
 		}
 		return "app";
 	}
+	
+
+    @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
+    public String welcome(Model model, Principal principal) {
+    	if (principal != null) {
+    		User currentUser = userService.findByUsername(principal.getName());
+    		if (currentUser != null) {
+	        	int peanutBalance = currentUser.getPeanutbalance();
+	        	model.addAttribute("peanutBalance", "Balance: " + peanutBalance +
+	        				((peanutBalance != 1)? " peanuts ": " peanut"));
+	        	for(Role role: currentUser.getRoles()) {
+			        if (role.getName().equals("ROLE_ADMIN")) {
+			            model.addAttribute("admin", true);
+			            System.out.println("admin");
+			            break;
+			        } else {
+			        	model.addAttribute("admin", false);
+			        }
+	        	}
+    		}
+    	}
+    	
+    	return "welcome";
+    }
 	
 }

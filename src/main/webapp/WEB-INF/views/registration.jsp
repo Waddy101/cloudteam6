@@ -24,6 +24,22 @@
 	                <form:errors path="password"></form:errors>
 	            </div>
 	        </spring:bind>
+	        
+	        <spring:bind path="firstname">
+	            <div class="form-group ${status.error ? 'has-error' : ''}">
+	                <form:input type="text" path="firstname" class="form-control" placeholder="First Name"
+	                            autofocus="true"></form:input>
+	                <form:errors path="firstname"></form:errors>
+	            </div>
+	        </spring:bind>
+	        
+	        <spring:bind path="lastname">
+	            <div class="form-group ${status.error ? 'has-error' : ''}">
+	                <form:input type="text" path="lastname" class="form-control" placeholder="Last Name"
+	                            autofocus="true"></form:input>
+	                <form:errors path="lastname"></form:errors>
+	            </div>
+	        </spring:bind>
 	
 	        <spring:bind path="passwordConfirm">
 	            <div class="form-group ${status.error ? 'has-error' : ''}">
