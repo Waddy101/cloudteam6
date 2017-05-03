@@ -3,17 +3,24 @@ package com.cloudteam6.model;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Set;
 
 @Entity
 @Table(name = "user")
-public class User {
-    private Long id;
+public class User implements java.io.Serializable {
+	private static final long serialVersionUID = 1L;
+	private Long id;
     private String username;
+    @JsonIgnore
     private String password;
+    @JsonIgnore
     private String passwordConfirm;
     private String firstname;
     private String lastname;
+    @JsonIgnore
     private Set<Role> roles;
     private int peanutbalance;
 
@@ -43,30 +50,36 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
     }
-
+    
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
-
+    
+    @JsonIgnore
     public void setPassword(String password) {
         this.password = password;
     }
 
+    @JsonIgnore
     @Transient
     public String getPasswordConfirm() {
         return passwordConfirm;
     }
-
+    
+    @JsonIgnore
     public void setPasswordConfirm(String passwordConfirm) {
         this.passwordConfirm = passwordConfirm;
     }
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JsonIgnore
     public Set<Role> getRoles() {
         return roles;
     }
 
+    @JsonIgnore
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }

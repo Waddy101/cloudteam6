@@ -1,6 +1,5 @@
 package com.cloudteam6.web;
 
-import com.cloudteam6.model.Role;
 import com.cloudteam6.model.User;
 import com.cloudteam6.service.SecurityService;
 import com.cloudteam6.service.UserService;
@@ -15,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class UserController {
@@ -58,5 +58,10 @@ public class UserController {
             model.addAttribute("message", "You have been logged out successfully.");
 
         return "login";
+    }
+    
+    @RequestMapping(value = "/user/current", method = RequestMethod.GET)
+    public @ResponseBody User getUser(Principal principal) {
+    	return userService.findByUsername(principal.getName());
     }
 }
