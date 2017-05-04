@@ -5,7 +5,6 @@
 <c:set var="basePort" value="${pageContext.request.localPort}"/>
 
 <t:applicationLayout>
-    <h1>Available Applications</h1>
    	<div class="row">
   		<div class="col-md-6 col-md-offset-3">
   			<h1 class="central">App Manager</h1>
@@ -15,7 +14,7 @@
 		<div class="col-md-8 col-md-offset-2">
 			<div class="panel panel-default">
   				<div class="panel-heading">
-  					<h3 class="panel-title">My Societies</h3>
+  					<h3 class="panel-title">Available Apps</h3>
   				</div>
 				<div class="panel-body remove-padding">
     				<div class="table-responsive">
@@ -45,16 +44,6 @@
 			</div>
 		</div>
 	</div> 
-   	<table id="applicationTable" class="table table-striped">
-  		<c:forEach items="${appList}" var="app">
-  			<c:if test="${app.active or admin}">
-	            <tr>
-	                <td><c:out value="${app.name}" /></td>
-	            </tr>
-            </c:if>
-        </c:forEach>
-	</table>
-	<button id="deposit" class="btn btn-lg btn-success">DEPOSIT</button>
     <script>
     $(function() {
     	function sendAjax(transaction) {

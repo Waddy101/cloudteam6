@@ -86,3 +86,15 @@ h4 {
 	padding-top: 6px;
 	width: 150%;
 }
+
+.central{
+	text-align:center;
+}
+
+.remove-padding{
+	padding:0px !important;
+}
+
+.remove-margin{
+	margin:0px !important;
+}
