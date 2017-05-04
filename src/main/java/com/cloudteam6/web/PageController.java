@@ -51,6 +51,7 @@ public class PageController {
         	}
 		}	
 		model.addAttribute("appURL", appURL);
+		model.addAttribute("appList", appRepository.findAll());
 		if (app.isActive()) {
 			model.addAttribute("active", "checked");
 			System.out.println("application is active");
