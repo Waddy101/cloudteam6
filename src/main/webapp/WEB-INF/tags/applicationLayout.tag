@@ -71,7 +71,20 @@
 						data-toggle="dropdown" role="button" aria-haspopup="true"
 						aria-expanded="false">Apps<span class="caret"></span></a>
 						<ul class="dropdown-menu" id="left-dropdown">
-							<!--  Dynamically add applications here -->
+							<c:choose>
+								<c:when test="${appList.size() > 0}" >
+									<c:forEach items="${appList}" var="app">
+							  			<c:if test="${app.active or admin}">
+							  				<li>
+								        		<a href="/cloudteam6/loadApp?appName=<c:out value="${app.name}"/>">${app.name}</a>  
+							            	<li>
+							            </c:if>
+							        </c:forEach>
+						        </c:when>
+						        <c:otherwise>
+						        	<li>No Apps exist</li>
+						        </c:otherwise>
+					        </c:choose>
 						</ul>
 					</li>
 					<c:choose>
@@ -106,9 +119,7 @@
 					</c:choose>
 				</ul>
 			</div>
-			<!-- /.navbar-collapse -->
 		</div>
-		<!-- /.container-fluid -->
 	</nav>
 	<div class="container">
 		<h3 class="text-muted">Sheffield Student Life Planner</h3>

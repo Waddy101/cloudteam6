@@ -4,7 +4,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 @SpringBootApplication
 @EnableJpaRepositories
@@ -20,5 +24,12 @@ public class Application extends SpringBootServletInitializer {
     }
     
     private static Class<Application> appClass = Application.class;
-
+        
+    @Bean
+    public ReloadableResourceBundleMessageSource messageSource() {
+            ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+            messageSource.setBasename("classpath:lang/messages");
+            messageSource.setCacheSeconds(10); //reload messages every 10 seconds
+            return messageSource;
+}
 }
