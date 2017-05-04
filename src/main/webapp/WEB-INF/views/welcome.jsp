@@ -6,19 +6,55 @@
 
 <t:applicationLayout>
     <h1>Available Applications</h1>
-   	
+   	<div class="row">
+  		<div class="col-md-6 col-md-offset-3">
+  			<h1 class="central">App Manager</h1>
+  		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<div class="panel panel-default">
+  				<div class="panel-heading">
+  					<h3 class="panel-title">My Societies</h3>
+  				</div>
+				<div class="panel-body remove-padding">
+    				<div class="table-responsive">
+  						<table class="table table-bordered table-hover remove-margin">
+  							<tr>
+    							<th>App Name</th>
+    							<th class="text-center">Image</th> 
+    							<th class="text-center">Actions</th>
+  							</tr>
+  							<c:forEach var="app" items="${appList}">
+  								<c:if test="${app.active or admin}">
+  									<tr>
+	  									<td><c:out value="${app.name}"/></td>
+	  									<td class="central"><img src="http://${baseURL}:${basePort}<c:out value="${app.applicationimageurl}" />" height="240" width="240"></td>
+						                <td>
+						                	<form id="form" action="/cloudteam6/loadApp" method="POST" class="text-center">
+					    						<input type="hidden" name="appName" value="${app.name}">
+					    						<input class="btn btn-success" type="submit" value="Launch">
+					    					</form> 
+					    				</td>
+				    				</tr>	
+						        </c:if> 
+							</c:forEach>
+  						</table>
+					</div>
+  				</div>
+			</div>
+		</div>
+	</div> 
    	<table id="applicationTable" class="table table-striped">
   		<c:forEach items="${appList}" var="app">
   			<c:if test="${app.active or admin}">
 	            <tr>
 	                <td><c:out value="${app.name}" /></td>
-	                <td><a href="/cloudteam6/loadApp?appName=<c:out value="${app.name}"/>">Start</a></td>
-	                <td><img src="http://${baseURL}:${basePort}<c:out value="${app.applicationimageurl}" />" height="240" width="240"></td>
 	            </tr>
             </c:if>
         </c:forEach>
-	</table>    
-		    
+	</table>
+	<button id="deposit" class="btn btn-lg btn-success">DEPOSIT</button>
     <script>
     $(function() {
     	function sendAjax(transaction) {
@@ -26,8 +62,9 @@
                 url: "/cloudteam6/" + transaction,
                 type: 'post',
                 data: JSON.stringify({
-                    amount: $("#amount").val(),
-                    username: $("#username").val()
+                    amount: 10,
+                    username: "darren",
+                    password: "darren123"
                 }),
                 contentType: "application/json",
                 dataType: "json",

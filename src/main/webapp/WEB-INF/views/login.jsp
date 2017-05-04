@@ -1,4 +1,4 @@
-<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
  <t:applicationLayout>
  	<div class="container">
 		<div class="row">
