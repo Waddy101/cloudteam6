@@ -27,8 +27,13 @@
 	    $.appToggle = function(element){
 	       	$.sendAjax(!element.checked);
 	    };
+	    
+
 	});
 	
+	window.onload = function(){
+		document.forms['userForm'].submit()
+	}
 	</script>
 	<c:choose>
 		<c:when test="${admin}">
@@ -56,7 +61,7 @@
 			</div>
 		</c:when>
 	</c:choose>
-	<iframe id="appFrame" src="${contextPath}${appURL}" width=100% height=100%>
+	<iframe id="appFrame" width=100% height=100% src="${contextPath}${appURL}">
 		Please use a browser that supports iFrame to access applications on our website
 	</iframe>
 </t:applicationLayout>

@@ -28,7 +28,7 @@ public class PageController {
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping(value = "/loadApp", method = RequestMethod.GET)
+	@RequestMapping(value = "/loadApp", method = RequestMethod.POST)
 	public String getApplication(@RequestParam("appName") String appname, Model model, Principal principal) {		
 		App app = appRepository.findByName(appname);
 		String appURL = app.getURL();
@@ -55,6 +55,7 @@ public class PageController {
 		}	
 		model.addAttribute("appURL", appURL);
 		model.addAttribute("appList", appRepository.findAll());
+		model.addAttribute("user", currentUser);
 		if (app.isActive()) {
 			model.addAttribute("active", "checked");
 			System.out.println("application is active");

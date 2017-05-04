@@ -32,6 +32,7 @@
 						                <td>
 						                	<form id="form" action="/cloudteam6/loadApp" method="POST" class="text-center">
 					    						<input type="hidden" name="appName" value="${app.name}">
+					    						<input type="hidden" name="principal" value="${principal})">
 					    						<input class="btn btn-success btn-block" type="submit" value="Launch">
 					    					</form> 
 					    					<br>
