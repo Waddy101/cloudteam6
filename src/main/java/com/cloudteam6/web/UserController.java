@@ -86,6 +86,15 @@ public class UserController {
 		userService.save(user);
 	}
 	
+	@RequestMapping(value="/user/removeRole", method = RequestMethod.POST)
+	@ResponseStatus(value = HttpStatus.OK)
+	public void removeRole(@RequestParam("role") String roleName, Principal principal) {
+		Role role = roleRepository.findByName(roleName);
+		User user = userService.findByUsername(principal.getName());
+		user.removeRole(role);
+		userService.save(user);
+	}
+	
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
 	public String showAllUsers(Model model, Principal principal) {	
 		User currentUser = userService.findByUsername(principal.getName());
