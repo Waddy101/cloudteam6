@@ -26,23 +26,30 @@ public class PageController {
 	private UserService userService;
 	
 	@RequestMapping(value = "/loadApp", method = RequestMethod.GET)
-	public String getApplication(@RequestParam("appName") String appname, Model model) {		
+	public String getApplication(@RequestParam("appName") String appname, Model model, Principal principal) {		
 		App app = appRepository.findByName(appname);
 		String appURL = app.getURL();
-		System.out.println("appURL");
-		org.springframework.security.core.userdetails.User secUser = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		User user = userService.findByUsername(secUser.getUsername());
-		boolean admin = false;
-		boolean dev = false;
-		for(Role role : user.getRoles()) {
-			if (role.getName().equals("ROLE_ADMIN")) {
-				admin = true;
-			} else if (role.getName().equals("ROLE_DEV")) {
-				dev = true;
-			}
-		}
-		model.addAttribute("admin", admin);
-		model.addAttribute("dev", dev);
+		User currentUser = userService.findByUsername(principal.getName());
+		if (currentUser != null) {
+        	int peanutBalance = currentUser.getPeanutbalance();
+        	model.addAttribute("peanutBalance", "Balance: " + peanutBalance +
+        				((peanutBalance != 1)? " peanuts ": " peanut"));
+        	for(Role role: currentUser.getRoles()) {
+		        if (role.getName().equals("ROLE_ADMIN")) {
+		            model.addAttribute("admin", true);
+		            model.addAttribute("canupload", true);
+		            break;
+		        } else if (role.getName().equals("ROLE_DEV")) {
+		        	model.addAttribute("canupload", true);
+		        	model.addAttribute("dev", true);
+		        	break;
+		        } else {
+		        	model.addAttribute("admin", false);
+		        	model.addAttribute("dev", false);
+		        	model.addAttribute("canupload", false);
+;		        }
+        	}
+		}	
 		model.addAttribute("appURL", appURL);
 		if (app.isActive()) {
 			model.addAttribute("active", "checked");
