@@ -120,7 +120,7 @@
 				</ul>
 			</div>
 		</div>
-	</nav>
+	</nav> 
 	<jsp:doBody />
 </body>
 </html>
