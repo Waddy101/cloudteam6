@@ -40,6 +40,7 @@
 						class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href="/cloudteam6">Cloud6</a>
+				<h4 style="padding-left: 90px;">${peanutBalance}</h4>
 			</div>
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse"
@@ -94,8 +95,7 @@
 						<c:when test="${pageContext.request.userPrincipal.name != null}">
 				        	<li>
 					        	<%@ include file="/WEB-INF/views/logout.jsp" %>
-					        	<h3>Welcome ${pageContext.request.userPrincipal.name} | <a onclick="document.forms['logoutForm'].submit()">Logout</a></h3>		
-								<h4>${peanutBalance}</h4>
+					        	<h4>Welcome ${pageContext.request.userPrincipal.name} | <a onclick="document.forms['logoutForm'].submit()">Logout</a></h4>		
 							</li>
 						</c:when>
 						<c:otherwise>
@@ -123,11 +123,7 @@
 				</ul>
 			</div>
 		</div>
-	</nav>
-	<div class="container">
-		<h3 class="text-muted">Sheffield Student Life Planner</h3>
-	</div>
-	
+	</nav> 
 	<jsp:doBody />
 </body>
 </html>
