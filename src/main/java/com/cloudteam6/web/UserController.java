@@ -1,11 +1,15 @@
 package com.cloudteam6.web;
 
+import com.cloudteam6.model.Role;
 import com.cloudteam6.model.User;
+import com.cloudteam6.repository.RoleRepository;
 import com.cloudteam6.service.SecurityService;
 import com.cloudteam6.service.UserService;
 import com.cloudteam6.validator.UserValidator;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -26,6 +31,9 @@ public class UserController {
 
     @Autowired
     private UserValidator userValidator;
+    
+    @Autowired
+    private RoleRepository roleRepository;
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
@@ -64,4 +72,13 @@ public class UserController {
     public @ResponseBody User getUser(Principal principal) {
     	return userService.findByUsername(principal.getName());
     }
+    
+	@RequestMapping(value="/user/addrole", method = RequestMethod.GET)
+	public @ResponseBody Set<Role> addRole(@RequestParam("role") String roleName, Principal principal) {
+		Role role = roleRepository.findByName(roleName);
+		User user = userService.findByUsername(principal.getName());
+		user.addRole(role);
+		userService.save(user);
+		return user.getRoles();
+	}
 }

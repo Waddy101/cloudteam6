@@ -84,6 +84,13 @@ public class User implements java.io.Serializable {
         this.roles = roles;
     }
     
+    public void addRole(Role role) {
+    	this.roles.add(role);
+    	for(Role role1: this.roles) {
+        	System.out.println(role1.getName());
+    	}
+    }
+    
 	public int getPeanutbalance() {
 		return peanutbalance;
 	}

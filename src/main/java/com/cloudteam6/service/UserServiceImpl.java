@@ -24,10 +24,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public void save(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        Role userRole = roleRepository.findOne((long) 1);
-        ArrayList<Role> userRoles = new ArrayList<Role>();
-        userRoles.add(userRole);
-        user.setRoles(new HashSet<>(userRoles));
+        if(user.getRoles() == null) {
+	        Role userRole = roleRepository.findOne((long) 1);
+	        ArrayList<Role> userRoles = new ArrayList<Role>();
+	        userRoles.add(userRole);
+	        user.setRoles(new HashSet<>(userRoles));
+        }
         userRepository.save(user);
     }
 

@@ -9,11 +9,11 @@
    	
    	<table id="applicationTable" class="table table-striped">
   		<c:forEach items="${appList}" var="app">
-  			<c:if test="${app.active || admin}">
+  			<c:if test="${app.active or admin}">
 	            <tr>
 	                <td><c:out value="${app.name}" /></td>
 	                <td><a href="/cloudteam6/loadApp?appName=<c:out value="${app.name}"/>">Start</a></td>
-	                <td><img src="http://${baseURL}:${basePort}<c:out value="${app.applicationImageURL}" />"></td>
+	                <td><img src="http://${baseURL}:${basePort}<c:out value="${app.applicationimageurl}" />"></td>
 	            </tr>
             </c:if>
         </c:forEach>
