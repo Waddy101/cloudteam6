@@ -32,8 +32,15 @@
 						                <td>
 						                	<form id="form" action="/cloudteam6/loadApp" method="POST" class="text-center">
 					    						<input type="hidden" name="appName" value="${app.name}">
-					    						<input class="btn btn-success" type="submit" value="Launch">
+					    						<input class="btn btn-success btn-block" type="submit" value="Launch">
 					    					</form> 
+					    					<br>
+					    					<c:if test="${admin}">
+						    					<form id="form" action="/cloudteam6/deleteApp" method="POST" class="text-center">
+						    						<input type="hidden" name="id" value="${app.id}">
+						    						<input class="btn btn-danger btn-block" type="submit" value="Delete">
+						    					</form>
+						    				</c:if>	
 					    				</td>
 				    				</tr>	
 						        </c:if> 
