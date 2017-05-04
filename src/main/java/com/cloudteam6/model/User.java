@@ -3,7 +3,7 @@ package com.cloudteam6.model;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 import java.util.Set;
 
