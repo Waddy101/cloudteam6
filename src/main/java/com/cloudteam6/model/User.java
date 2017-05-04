@@ -25,11 +25,11 @@ public class User implements java.io.Serializable {
 
     
     /**
-     * Gives a new user 50 (the default number of) peanuts on registration
+     * The initial number of peanuts new users get on registration
      */
     @PrePersist
     public void prePersist() {
-    	peanutbalance = 50;
+    	peanutbalance = 5000;
     }
     
     @Id
@@ -85,9 +85,10 @@ public class User implements java.io.Serializable {
     
     public void addRole(Role role) {
     	this.roles.add(role);
-    	for(Role role1: this.roles) {
-        	System.out.println(role1.getName());
-    	}
+    }
+    
+    public void removeRole(Role role) {
+    	this.roles.remove(role);
     }
     
 	public int getPeanutbalance() {

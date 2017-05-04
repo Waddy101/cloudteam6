@@ -2,15 +2,16 @@ package com.cloudteam6.web;
 
 import com.cloudteam6.model.Role;
 import com.cloudteam6.model.User;
+import com.cloudteam6.repository.AppRepository;
 import com.cloudteam6.repository.RoleRepository;
 import com.cloudteam6.service.SecurityService;
 import com.cloudteam6.service.UserService;
 import com.cloudteam6.validator.UserValidator;
 
 import java.security.Principal;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
 public class UserController {
@@ -33,6 +35,9 @@ public class UserController {
     
     @Autowired
     private RoleRepository roleRepository;
+    
+    @Autowired
+    private AppRepository appRepository;
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
@@ -72,12 +77,47 @@ public class UserController {
     	return userService.findByUsername(principal.getName());
     }
     
-	@RequestMapping(value="/user/addrole", method = RequestMethod.GET)
-	public @ResponseBody Set<Role> addRole(@RequestParam("role") String roleName, Principal principal) {
+	@RequestMapping(value="/user/addRole", method = RequestMethod.POST)
+	@ResponseStatus(value = HttpStatus.OK)
+	public void addRole(@RequestParam("role") String roleName, Principal principal) {
 		Role role = roleRepository.findByName(roleName);
 		User user = userService.findByUsername(principal.getName());
 		user.addRole(role);
 		userService.save(user);
-		return user.getRoles();
 	}
+	
+	@RequestMapping(value="/user/removeRole", method = RequestMethod.POST)
+	@ResponseStatus(value = HttpStatus.OK)
+	public void removeRole(@RequestParam("role") String roleName, Principal principal) {
+		Role role = roleRepository.findByName(roleName);
+		User user = userService.findByUsername(principal.getName());
+		user.removeRole(role);
+		userService.save(user);
+	}
+	
+	@RequestMapping(value = "/users", method = RequestMethod.GET)
+	public String showAllUsers(Model model, Principal principal) {	
+		User currentUser = userService.findByUsername(principal.getName());
+		if (currentUser != null) {
+        	int peanutBalance = currentUser.getPeanutbalance();
+        	model.addAttribute("peanutBalance", "Balance: " + peanutBalance +
+        				((peanutBalance != 1)? " peanuts ": " peanut"));
+        	for(Role role: currentUser.getRoles()) {
+		        if (role.getName().equals("ROLE_ADMIN")) {
+		            model.addAttribute("admin", true);
+		            model.addAttribute("canupload", true);
+		            System.out.println("admin");
+		            break;
+		        } else if (role.getName().equals("ROLE_DEV")) {
+		        	model.addAttribute("canupload", true);
+		        } else {
+		        	model.addAttribute("admin", false);
+		        }
+        	}
+		}
+    	model.addAttribute("appList", appRepository.findAll());
+		model.addAttribute("users", userService.findAll());
+		return "users/list";
+	}
+	
 }

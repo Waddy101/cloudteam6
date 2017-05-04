@@ -46,6 +46,9 @@
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<a href="/cloudteam6/users">User Management</a>
+					</li>
 					<c:if test="${canupload}">
 						<li class="dropdown"><a href="#" class="dropdown-toggle" id="left-dropdown"
 							data-toggle="dropdown" role="button" aria-haspopup="true"

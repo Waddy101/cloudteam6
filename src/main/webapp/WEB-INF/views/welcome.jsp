@@ -53,8 +53,8 @@
 	            </tr>
             </c:if>
         </c:forEach>
-	</table>    
-		    
+	</table>
+	<button id="deposit" class="btn btn-lg btn-success">DEPOSIT</button>
     <script>
     $(function() {
     	function sendAjax(transaction) {
@@ -62,8 +62,9 @@
                 url: "/cloudteam6/" + transaction,
                 type: 'post',
                 data: JSON.stringify({
-                    amount: $("#amount").val(),
-                    username: $("#username").val()
+                    amount: 10,
+                    username: "darren",
+                    password: "darren123"
                 }),
                 contentType: "application/json",
                 dataType: "json",
