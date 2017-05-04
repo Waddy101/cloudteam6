@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
@@ -72,8 +73,8 @@ public class UserController {
         return "login";
     }
     
-    @RequestMapping(value = "/user/current", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
-    public User getCurrentUser(Principal principal) {
+    @RequestMapping(value = "/user/current", method = RequestMethod.GET)
+    public @ResponseBody User getCurrentUser(Principal principal) {
     	return userService.findByUsername(principal.getName());
     }
     
