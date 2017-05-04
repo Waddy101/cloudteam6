@@ -121,10 +121,6 @@
 			</div>
 		</div>
 	</nav>
-	<div class="container">
-		<h3 class="text-muted">Sheffield Student Life Planner</h3>
-	</div>
-	
 	<jsp:doBody />
 </body>
 </html>
