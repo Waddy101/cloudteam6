@@ -21,6 +21,8 @@ public class User implements java.io.Serializable {
     private String lastname;
     @JsonIgnore
     private Set<Role> roles;
+    @JsonIgnore
+    private Set<App> apps;
     private int peanutbalance;
 
     
@@ -70,7 +72,16 @@ public class User implements java.io.Serializable {
     public void setPasswordConfirm(String passwordConfirm) {
         this.passwordConfirm = passwordConfirm;
     }
+    
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    public Set<App> getApps() {
+        return apps;
+    }
 
+    public void setApps(Set<App> apps) {
+        this.apps = apps;
+    }
+    
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     @JsonIgnore

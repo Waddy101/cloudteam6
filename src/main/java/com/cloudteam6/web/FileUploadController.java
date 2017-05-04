@@ -4,6 +4,8 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.security.Principal;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,11 +21,17 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cloudteam6.repository.AppRepository;
+import com.cloudteam6.service.UserService;
 import com.cloudteam6.classfiles.Extractor;
 import com.cloudteam6.model.App;
+import com.cloudteam6.model.User;
 
 @Controller
 public class FileUploadController {
+	private static String destDir = System.getProperty("catalina.base") + "/webapps";
+	
+	@Autowired
+	private UserService userService;
 	
 	@Autowired 
 	private AppRepository appRepository;
@@ -32,7 +40,7 @@ public class FileUploadController {
 	private static String SAVE_DIR = "uploadedFiles";
 		
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
-	public @ResponseBody ModelAndView uploadFileHandler(@RequestParam("name") String name, @RequestParam("file") MultipartFile file, @RequestParam("imagefile") MultipartFile imagefile, HttpServletRequest req) {
+	public @ResponseBody ModelAndView uploadFileHandler(@RequestParam("name") String name, @RequestParam("file") MultipartFile file, @RequestParam("imagefile") MultipartFile imagefile, HttpServletRequest req, Principal principal) {
 		
 		if (!file.isEmpty()) {
 			try {
@@ -53,21 +61,17 @@ public class FileUploadController {
 				
 		        Path imagePath = Paths.get(savePath + File.separator + "images" + File.separator + imagefile.getOriginalFilename());
 		        Files.write(imagePath, imagebytes);
-				Extractor extractor = new Extractor();
-				Boolean extracted = extractor.extractFile(path.toString(), file.getOriginalFilename(), imagePath.toString(), imagefile.getOriginalFilename());
-				if (extracted) {
-					String appName = name;
-					String appURL = "/" + file.getOriginalFilename().substring(0, file.getOriginalFilename().length() - 4);
-					String appImageURL = "/cloudteam6/uploadedFiles/images/" + imagefile.getOriginalFilename();
-					App a = new App(appName, appURL, appImageURL, false);
-					System.out.println(a.getName());
-					System.out.println(a.getURL());
-					System.out.println(a.getApplicationimageurl());
-					appRepository.save(a);
-					return new ModelAndView("redirect:/loadApp?appName=" + a.getName());
-				} else {
-					return new ModelAndView("redirect:/welcome");
-				}
+		        
+		        Files.move(path, Paths.get(destDir + File.separator + file.getOriginalFilename()), StandardCopyOption.REPLACE_EXISTING);
+		        
+				String appName = name;
+				String appURL = "/" + file.getOriginalFilename().substring(0, file.getOriginalFilename().length() - 4);
+				String appImageURL = "/cloudteam6/uploadedFiles/images/" + imagefile.getOriginalFilename();
+				User user = userService.findByUsername(principal.getName());
+				App a = new App(appName, appURL, appImageURL, false, user);
+				appRepository.save(a);
+				return new ModelAndView("redirect:/loadApp?appName=" + a.getName());
+				
 			} catch (Exception e) {
 				logger.info("Upload failed");
 				return new ModelAndView("redirect:/welcome");

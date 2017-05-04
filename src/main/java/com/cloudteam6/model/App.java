@@ -10,14 +10,16 @@ public class App {
 	private String URL;	
 	private String applicationimageurl;
 	private boolean active;
+	private User user;
 	
 	protected App() {}
 	
-	public App(String name, String URL, String applicationImageURL, boolean active) {
+	public App(String name, String URL, String applicationImageURL, boolean active, User user) {
 		this.name = name;
 		this.URL = URL;
 		this.applicationimageurl = applicationImageURL;
 		this.active = active;
+		this.user = user;
 	}
 
 	@Id
@@ -61,5 +63,14 @@ public class App {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
-		
+	
+	@ManyToOne
+    @JoinColumn(name = "user_id")
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

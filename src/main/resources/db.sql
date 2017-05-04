@@ -62,5 +62,8 @@ CREATE TABLE `app` (
 	`URL` varchar(512) DEFAULT NULL,
 	`applicationimageurl` varchar(512) DEFAULT NULL,
 	`active` boolean NOT NULL,
-	PRIMARY KEY (`id`)
+	`user_id` int(11) NOT NULL,
+	PRIMARY KEY (`id`),
+	KEY `fk_app_userid_idx` (`user_id`),
+  	CONSTRAINT `fk_app_userid` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;

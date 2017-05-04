@@ -1,5 +1,7 @@
 package com.cloudteam6.web;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -10,17 +12,23 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.cloudteam6.model.App;
+import com.cloudteam6.model.User;
 import com.cloudteam6.service.AppService;
+import com.cloudteam6.service.UserService;
 
 @Controller
 public class AppController {
 	@Autowired 
 	private AppService appService;
+	
+	@Autowired
+	private UserService userService;
 
 	@RequestMapping(value="/add", method = RequestMethod.GET)
 	public @ResponseBody String addNewApp (@RequestParam String name
-			, @RequestParam String URL, @RequestParam String applicationImageURL) {
-		App a = new App(name, URL, applicationImageURL, false);
+			, @RequestParam String URL, @RequestParam String applicationImageURL, Principal principal) {
+		User user = userService.findByUsername(principal.getName());
+		App a = new App(name, URL, applicationImageURL, false, user);
 		appService.save(a);
 		return a.getURL();
 	}
