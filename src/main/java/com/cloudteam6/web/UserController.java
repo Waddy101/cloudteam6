@@ -8,7 +8,6 @@ import com.cloudteam6.service.UserService;
 import com.cloudteam6.validator.UserValidator;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;

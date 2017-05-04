@@ -13,7 +13,7 @@
 	            <tr>
 	                <td><c:out value="${app.name}" /></td>
 	                <td><a href="/cloudteam6/loadApp?appName=<c:out value="${app.name}"/>">Start</a></td>
-	                <td><img src="http://${baseURL}:${basePort}<c:out value="${app.applicationimageurl}" />"></td>
+	                <td><img src="http://${baseURL}:${basePort}<c:out value="${app.applicationimageurl}" />" height="240" width="240"></td>
 	            </tr>
             </c:if>
         </c:forEach>

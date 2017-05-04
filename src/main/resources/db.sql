@@ -37,6 +37,10 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
+LOCK TABLES `user` WRITE;
+INSERT INTO `user`(username, password, enabled, firstname, lastname) VALUES ("admin", "admin123", true, "admin", "admin");
+UNLOCK TABLES;
+
 --
 -- Table structure for table `user_role`
 --
@@ -50,6 +54,12 @@ CREATE TABLE `user_role` (
   CONSTRAINT `fk_user_role_roleid` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_user_role_userid` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+LOCK TABLES `user_role` WRITE;
+INSERT INTO `user_role` VALUES (4, 3);
+INSERT INTO `user_role` VALUES (4, 2);
+INSERT INTO `user_role` VALUES (4, 1);
+UNLOCK TABLES;
 
 --
 -- Table structure for table 'app'

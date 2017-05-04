@@ -1,4 +1,4 @@
-	<!DOCTYPE html>
+<!DOCTYPE html>
 
 <%@tag description="Default Page template" pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -45,26 +45,28 @@
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
-					<li class="dropdown"><a href="#" class="dropdown-toggle" id="left-dropdown"
-						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">Upload<span class="caret"></span></a>
-						<ul class="dropdown-menu" id="left-dropdown">
-							<li><form:form method="post" action="upload" enctype="multipart/form-data"> 
-								<p>
-									Application name: <input type="text" name="name" />
-								</p>
-								<p> 
-									Select Image to represent your application: <input type="file" name="imagefile" size="60" />
-								</p>
-								<p>
-									Select file to upload: <input type="file" name="file" size="60" />
-								</p>
-								<p>
-									<input type="submit" value="Upload" />
-								</p>
-							</form:form></li>
-						</ul>
-					</li>
+					<c:if test="${canupload}">
+						<li class="dropdown"><a href="#" class="dropdown-toggle" id="left-dropdown"
+							data-toggle="dropdown" role="button" aria-haspopup="true"
+							aria-expanded="false">Upload<span class="caret"></span></a>
+							<ul class="dropdown-menu" id="left-dropdown">
+								<li><form:form method="post" action="upload" enctype="multipart/form-data"> 
+									<p>
+										Application name: <input type="text" name="name" />
+									</p>
+									<p> 
+										Select Image to represent your application: <input type="file" name="imagefile" size="60" />
+									</p>
+									<p>
+										Select file to upload: <input type="file" name="file" size="60" />
+									</p>
+									<p>
+										<input type="submit" value="Upload" />
+									</p>
+								</form:form></li>
+							</ul>
+						</li>
+					</c:if>
 					<li class="dropdown"><a href="#" class="dropdown-toggle" id="left-dropdown"
 						data-toggle="dropdown" role="button" aria-haspopup="true"
 						aria-expanded="false">Apps<span class="caret"></span></a>

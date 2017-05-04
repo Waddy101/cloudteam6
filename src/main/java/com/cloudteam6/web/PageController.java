@@ -65,8 +65,11 @@ public class PageController {
         	for(Role role: currentUser.getRoles()) {
 		        if (role.getName().equals("ROLE_ADMIN")) {
 		            model.addAttribute("admin", true);
+		            model.addAttribute("canupload", true);
 		            System.out.println("admin");
 		            break;
+		        } else if (role.getName().equals("ROLE_DEV")) {
+		        	model.addAttribute("canupload", true);
 		        } else {
 		        	model.addAttribute("admin", false);
 		        }
