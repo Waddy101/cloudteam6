@@ -55,7 +55,7 @@
     $(function() {
     	function sendAjax(transaction) {
             $.ajax({
-                url: "/cloudteam6/" + transaction,
+                url: "/cloudteam6/peanutbank/" + transaction,
                 type: 'post',
                 data: JSON.stringify({
                     amount: 10,
