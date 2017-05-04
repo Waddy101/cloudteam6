@@ -39,59 +39,69 @@
 		});
 	
 	</script>
-	<div class="container">
-		<c:if test="${not empty msg}">
-		    <div class="alert alert-${css} alert-dismissible" role="alert">
-			<button type="button" class="close" data-dismiss="alert"
-                                aria-label="Close">
-				<span aria-hidden="true">×</span>
-			</button>
-			<strong>${msg}</strong>
-		    </div>
-		</c:if>
-
-		<h1>All Users</h1>
-
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th>#ID</th>
-					<th>Username</th>
-					<th>Actions</th>
-				</tr>
-			</thead>
-
-			<c:forEach var="user" items="${users}">
-			    <tr>
-					<td>
-						${user.id}
-					</td>
-					<td>${user.username}</td>
-					<td>
-						<c:choose>
-							<c:when test="${user.roles.contains('ROLE_DEV')}">
-								<button class="btn btn-primary" id="makeDev">Make Dev</button>
-								<button class="btn btn-danger hidden" id="removeDev">Remove Dev</button>
-							</c:when>
-							<c:otherwise>
-								<button class="btn btn-primary hidden" id="makeDev">Make Dev</button>
-								<button class="btn btn-danger" id="removeDev">Remove Dev</button>
-							</c:otherwise>
-				        </c:choose>
-				        <c:choose>
-				        	<c:when test="${user.roles.contains('ROLE_ADMIN')}">
-								<button class="btn btn-primary" id="makeAdmin">Make Admin</button>
-								<button class="btn btn-danger hidden" id="removeAdmin">Remove Admin</button>
-							</c:when>
-							<c:otherwise>
-								<button class="btn btn-primary hidden" id="makeAdmin">Make Admin</button>
-								<button class="btn btn-danger" id="removeAdmin">Remove Admin</button>
-							</c:otherwise>
-				        </c:choose>   
-					</td>
-			    </tr>
-			</c:forEach>
-		</table>
-
+	<c:if test="${not empty msg}">
+	    <div class="alert alert-${css} alert-dismissible" role="alert">
+		<button type="button" class="close" data-dismiss="alert"
+                               aria-label="Close">
+			<span aria-hidden="true">×</span>
+		</button>
+		<strong>${msg}</strong>
+	    </div>
+	</c:if>
+	<div class="row">
+  		<div class="col-md-6 col-md-offset-3">
+  			<h1 class="central">All Users</h1>
+  		</div>
 	</div>
+	<br>
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
+			<div class="panel panel-default">
+  				<div class="panel-heading">
+  					<h3 class="panel-title">My Societies</h3>
+  				</div>
+				<div class="panel-body remove-padding">
+    				<div class="table-responsive">
+  						<table class="table table-bordered table-hover remove-margin">
+  							<tr>
+    							<th>#ID</th>
+								<th>Username</th>
+								<th>Actions</th>
+  							</tr>
+  							<c:forEach var="user" items="${users}">
+							    <tr>
+									<td>
+										${user.id}
+									</td>
+									<td>${user.username}</td>
+									<td>
+										<c:choose>
+											<c:when test="${user.roles.contains('ROLE_DEV')}">
+												<button class="btn btn-primary" id="makeDev">Make Dev</button>
+												<button class="btn btn-danger hidden" id="removeDev">Remove Dev</button>
+											</c:when>
+											<c:otherwise>
+												<button class="btn btn-primary hidden" id="makeDev">Make Dev</button>
+												<button class="btn btn-danger" id="removeDev">Remove Dev</button>
+											</c:otherwise>
+								        </c:choose>
+								        <c:choose>
+								        	<c:when test="${user.roles.contains('ROLE_ADMIN')}">
+												<button class="btn btn-primary" id="makeAdmin">Make Admin</button>
+												<button class="btn btn-danger hidden" id="removeAdmin">Remove Admin</button>
+											</c:when>
+											<c:otherwise>
+												<button class="btn btn-primary hidden" id="makeAdmin">Make Admin</button>
+												<button class="btn btn-danger" id="removeAdmin">Remove Admin</button>
+											</c:otherwise>
+								        </c:choose>   
+									</td>
+							    </tr>
+							</c:forEach>
+  						</table>
+					</div>
+  				</div>
+			</div>
+		</div>
+	</div> 
 </t:applicationLayout>
