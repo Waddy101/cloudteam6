@@ -92,7 +92,7 @@ public class PageController {
     }
 	
 	@RequestMapping(value = "/deleteApp", method = RequestMethod.POST, params = {"id"})
-    public @ResponseBody void delete(HttpServletResponse response, Model model, Principal principal,@RequestParam("id") long id) throws IOException{
+    public String delete(Model model, Principal principal,@RequestParam("id") long id) throws IOException{
     	User currentUser = userService.findByUsername(principal.getName());
 		if (currentUser != null) {
         	for(Role role: currentUser.getRoles()) {
@@ -102,6 +102,6 @@ public class PageController {
 		        } 
         	}
 		}
-		response.sendRedirect("/");
+		return "welcome";
     }
 }
