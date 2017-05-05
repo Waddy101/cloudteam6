@@ -83,10 +83,4 @@ public class PeanutController {
 		}
 		response.setStatusCode(422);
 	}
-	
-	@RequestMapping(value="/user/addrole", method = RequestMethod.POST)
-	public @ResponseBody String addRole(@RequestParam("role") String role) {
-		
-		return "poop";
-	}
 }
