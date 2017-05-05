@@ -28,7 +28,7 @@ public class PageController {
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping(value = "/loadApp", method = RequestMethod.POST)
+	@RequestMapping(value = "/loadApp", method = RequestMethod.GET)
 	public String getApplication(@RequestParam("appName") String appname, Model model, Principal principal) {		
 		App app = appRepository.findByName(appname);
 		String appURL = app.getURL();

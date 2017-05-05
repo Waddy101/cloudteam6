@@ -19,22 +19,17 @@
 		    else{
 		       return results[1] || 0;
 		    }
-		};
+		};	
 		$.sendAjax = function sendAjax(val) {	
 			$.post("/cloudteam6/toggleApp", {active: !val, appName: $.urlParam('appName')})
         };
-		
 	    $.appToggle = function(element){
 	       	$.sendAjax(!element.checked);
 	    };
-	    
-
 	});
-	
-	window.onload = function(){
-		document.forms['userForm'].submit()
-	}
 	</script>
+	<article id="userdata" data-id="${user.id}" data-username="${user.username}" data-firstname="${user.firstname}" 
+		data-lastname="${user.lastname}" data-peanutbalance="${user.peanutbalance}" ></article>
 	<c:choose>
 		<c:when test="${admin}">
 			<div class="row">

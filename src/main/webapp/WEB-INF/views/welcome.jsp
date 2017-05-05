@@ -30,9 +30,8 @@
 	  									<td><c:out value="${app.name}"/></td>
 	  									<td class="central"><img src="http://${baseURL}:${basePort}<c:out value="${app.applicationimageurl}" />" height="240" width="240"></td>
 						                <td>
-						                	<form id="form" action="/cloudteam6/loadApp" method="POST" class="text-center">
+						                	<form id="form" action="/cloudteam6/loadApp" method="GET" class="text-center">
 					    						<input type="hidden" name="appName" value="${app.name}">
-					    						<input type="hidden" name="principal" value="${principal})">
 					    						<input class="btn btn-success btn-block" type="submit" value="Launch">
 					    					</form> 
 					    					<br>
@@ -52,31 +51,4 @@
 			</div>
 		</div>
 	</div> 
-    <script>
-    $(function() {
-    	function sendAjax(transaction) {
-            $.ajax({
-                url: "/cloudteam6/" + transaction,
-                type: 'post',
-                data: JSON.stringify({
-                    amount: 10,
-                    username: "darren",
-                    password: "darren123"
-                }),
-                contentType: "application/json",
-                dataType: "json",
-                success: function(data) {
-                    console.log(data);
-                }
-            });
-        }
-    	$("#deposit").click(function() {
-    		sendAjax("deposit");
-    	});
-    	$("#charge").click(function() {
-    		sendAjax("charge");
-    	});
-    });
-    </script>
-    
 </t:applicationLayout>

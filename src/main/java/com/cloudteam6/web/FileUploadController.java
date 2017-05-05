@@ -22,7 +22,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.cloudteam6.repository.AppRepository;
 import com.cloudteam6.service.UserService;
-import com.cloudteam6.classfiles.Extractor;
 import com.cloudteam6.model.App;
 import com.cloudteam6.model.User;
 

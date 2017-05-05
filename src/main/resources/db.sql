@@ -34,6 +34,7 @@ CREATE TABLE `user` (
   `firstname` varchar(255) DEFAULT NULL,
   `lastname` varchar(255) DEFAULT NULL,
   `peanutBalance` int(11) NOT NULL DEFAULT 25,
+  `current` boolean DEFAULT false,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 

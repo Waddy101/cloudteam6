@@ -12,7 +12,6 @@ import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -73,9 +72,9 @@ public class UserController {
         return "login";
     }
     
-    @RequestMapping(value = "/user/current", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/current", method = RequestMethod.GET, produces="application/json")
     public @ResponseBody User getCurrentUser(Principal principal) {
-    	return userService.findByUsername(principal.getName());
+    	return userService.findCurrent();
     }
     
 	@RequestMapping(value="/user/addRole", method = RequestMethod.POST)

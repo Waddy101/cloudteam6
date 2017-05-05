@@ -29,5 +29,5 @@ public class Application extends SpringBootServletInitializer {
             messageSource.setBasename("classpath:lang/messages");
             messageSource.setCacheSeconds(10); //reload messages every 10 seconds
             return messageSource;
-}
+    }
 }

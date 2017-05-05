@@ -24,6 +24,8 @@ public class User implements java.io.Serializable {
     @JsonIgnore
     private Set<App> apps;
     private int peanutbalance;
+    @JsonIgnore
+    private boolean current;
 
     
     /**
@@ -73,11 +75,13 @@ public class User implements java.io.Serializable {
         this.passwordConfirm = passwordConfirm;
     }
     
+    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     public Set<App> getApps() {
         return apps;
     }
 
+    @JsonIgnore
     public void setApps(Set<App> apps) {
         this.apps = apps;
     }
@@ -94,10 +98,12 @@ public class User implements java.io.Serializable {
         this.roles = roles;
     }
     
+    @JsonIgnore
     public void addRole(Role role) {
     	this.roles.add(role);
     }
     
+    @JsonIgnore
     public void removeRole(Role role) {
     	this.roles.remove(role);
     }
@@ -125,4 +131,12 @@ public class User implements java.io.Serializable {
     public void setLastname(String lastname) {
         this.lastname = lastname;
     }
+    @JsonIgnore
+	public boolean isCurrent() {
+		return current;
+	}
+	@JsonIgnore
+	public void setCurrent(boolean current) {
+		this.current = current;
+	}
 }
