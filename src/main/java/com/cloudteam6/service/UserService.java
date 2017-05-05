@@ -11,6 +11,7 @@ import com.cloudteam6.model.User;
 public interface UserService {
     void save(User user);
     User findByUsername(String username);
+    User findById(long Id);
     List<User> findAll();
     User findCurrent();
 }

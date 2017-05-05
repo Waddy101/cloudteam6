@@ -13,13 +13,8 @@ import com.cloudteam6.resource.PeanutModificationRequest;
 @Component
 public class PeanutModificationRequestValidator implements Validator {
 	
-	static final int MAX_INT = 2147483647;
-	
 	@Autowired
 	private UserService userService;
-	
-	@Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@Override
 	/**
@@ -32,50 +27,12 @@ public class PeanutModificationRequestValidator implements Validator {
 	@Override
 	public void validate(Object o, Errors e) {
 		PeanutModificationRequest request = (PeanutModificationRequest) o;
-		if (hasUninitialisedNullableFields(request, e)) {
-			return;
+		if (request.getUserId() <= 0) {
+			e.rejectValue("userId", "invalid.user.id");
 		}
-		
-		if ( !(request.getTransaction().equals("deposit") ||
-				request.getTransaction().equals("charge")) ) {
-			e.rejectValue("transaction", "peanut.unknown.transaction");
-		}
-		
-		if (request.getAmount() <= 0) {
-			e.rejectValue("amount", "peanut.negative.amount");
-		}
-		
-		User user = userService.findByUsername(request.getUsername());
-		// User authentication checks
-		if (!bCryptPasswordEncoder.matches(request.getPassword(), user.getPassword())) {
-			e.rejectValue("password", "peanut.bad.credential");
-		}
-		if (request.getTransaction().equals("deposit")) {
-			// Overflow
-			int depositLimit = MAX_INT - user.getPeanutbalance();
-			if (request.getAmount() > depositLimit) {
-				e.rejectValue("amount", "peanut.amount.overflow");
-			}
-		}
-		else if (request.getTransaction().equals("charge")) {
-			if (request.getAmount() > user.getPeanutbalance()) {
-				e.rejectValue("amount", "peanut.insufficient");
-			}
+		if (request.getDeveloperId() <= 0) {
+			e.rejectValue("developerId", "invalid.developer.id");
 		}
 		
 	}
-	
-	private boolean hasUninitialisedNullableFields(PeanutModificationRequest request, Errors e) {
-		boolean requiredFieldIsNull = false;
-		if (request.getUsername() == null) {
-			e.rejectValue("username", "peanut.username.empty");
-			requiredFieldIsNull = true;
-		}
-		if (request.getPassword() == null) {
-			e.rejectValue("password", "peanut.password.empty");
-			requiredFieldIsNull = true;
-		}
-		return requiredFieldIsNull;
-	}
-
 }

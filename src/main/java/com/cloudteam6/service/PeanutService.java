@@ -1,12 +1,14 @@
 package com.cloudteam6.service;
 
 import org.springframework.stereotype.Service;
-
-import com.cloudteam6.model.User;
+import org.springframework.validation.BindingResult;
 
 @Service
 public interface PeanutService {
-	void deposit(int amount, User user);
-	
-	void charge(int amount, User user);
+	/**
+	 * Charges the user and credits the developer of the app.
+	 * @param userId - the user to be charged
+	 * @param devId - the developer to be credited
+	 */
+	void bill(long userId, long devId, BindingResult e);
 }

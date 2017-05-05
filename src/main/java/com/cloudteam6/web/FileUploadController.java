@@ -69,7 +69,7 @@ public class FileUploadController {
 				User user = userService.findByUsername(principal.getName());
 				App a = new App(appName, appURL, appImageURL, false, user);
 				appRepository.save(a);
-				return new ModelAndView("redirect:/loadApp?appName=" + a.getName());
+				return new ModelAndView("redirect:/welcome");
 				
 			} catch (Exception e) {
 				logger.info("Upload failed");

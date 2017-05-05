@@ -12,4 +12,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     
     @Query("select u from User u where current=true")
     User findCurrent();
+
+    User findById(long Id);
 }
