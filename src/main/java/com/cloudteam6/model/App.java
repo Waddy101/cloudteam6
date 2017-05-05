@@ -44,8 +44,8 @@ public class App {
 		return URL;
 	}
 
-	public void setURL(String uRL) {
-		URL = uRL;
+	public void setURL(String URL) {
+		this.URL = URL;
 	}
 
 	public String getApplicationimageurl() {

@@ -74,7 +74,7 @@ public class UserController {
     
     @RequestMapping(value = "/user/current", method = RequestMethod.GET, produces="application/json")
     public @ResponseBody User getCurrentUser(Principal principal) {
-    	return userService.findCurrent();
+    	return userService.findByUsername(principal.getName());
     }
     
 	@RequestMapping(value="/user/addRole", method = RequestMethod.POST)

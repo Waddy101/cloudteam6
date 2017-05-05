@@ -28,4 +28,9 @@ public class AppServiceImpl implements AppService{
 		app.setActive(active);
 		appRepository.save(app);
 	}
+
+	@Override
+	public App findByURL(String URL) {
+		return appRepository.findByURL(URL);
+	}
 }

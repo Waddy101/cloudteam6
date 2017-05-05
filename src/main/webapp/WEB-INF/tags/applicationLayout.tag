@@ -56,7 +56,7 @@
 							<ul class="dropdown-menu" id="left-dropdown">
 								<li><form:form method="post" action="upload" enctype="multipart/form-data"> 
 									<p>
-										Application name: <input type="text" name="name" />
+										Application name: <input type="text" name="name" style="color: black;" />
 									</p>
 									<p> 
 										Select Image to represent your application: <input type="file" name="imagefile" size="60" />

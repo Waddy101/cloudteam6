@@ -38,4 +38,9 @@ public class AppController {
 	public void toggleAppActivation(@RequestParam("active") boolean active, @RequestParam("appName") String appName) {
 		appService.toggleAppActivation(appName, active);	
 	}
+	
+	@RequestMapping(value = "/appInfo", method = RequestMethod.GET)
+	public @ResponseBody App getAppInfo(@RequestParam("appName") String URL) {
+		return appService.findByURL(URL);
+	}
 }

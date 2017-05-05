@@ -8,5 +8,6 @@ import com.cloudteam6.model.App;
 public interface AppService {
 	void save(App app);
 	App findByName(String name);
+	App findByURL(String URL);
 	void toggleAppActivation(String name, boolean active);
 }
