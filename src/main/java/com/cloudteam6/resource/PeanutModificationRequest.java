@@ -5,40 +5,24 @@ import org.springframework.stereotype.Component;
 @Component
 public class PeanutModificationRequest {
 	
-	private int amount;
-	private String transaction;
-	private String username;
-	private String password;
+	private long userId = -1;
+	private long developerId = -1;
 	
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public int getAmount() {
-		return amount;
+	public long getUserId() {
+		return userId;
 	}
 	
-	public void setAmount(int amount) {
-		this.amount = amount;
+	public void setUserId(long userId) {
+		this.userId = userId;
 	}
 	
-	public String getTransaction() {
-		return transaction;
+	public long getDeveloperId() {
+		return developerId;
 	}
 	
-	public void setTransaction(String transaction) {
-		this.transaction = transaction;
+	public void setDeveloperId(long developerId) {
+		this.developerId = developerId;
 	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
+	
+	
 }
